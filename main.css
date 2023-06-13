@@ -1,0 +1,60 @@
+body{
+    font-family:Arial, Helvetica, sans-serif;
+    background-image: url("../images/spider.jpg");
+    margin: 0;
+    padding: 0;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: center;
+}
+
+/*---------------- login container ----------------*/
+.box-area{
+    width: 930px;
+}
+.row { 
+    background-color: rgba(0,0,0,0.3);
+    border-style: none;
+}
+.tito{
+    color: #ffff;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-weight: bold;
+}
+
+.tito1{
+    color: red;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-weight: bold;
+}
+
+
+/*----------------  right box ----------------*/
+
+.right-box{
+    padding: 40px 30px 40px 40px;
+}
+
+
+/*---------------- placeholder ----------------*/
+::placeholder{
+    font-size: 16px;
+}
+
+/*---------------- small screen ----------------*/
+
+@media only screen and (max-width: 768px) {
+    .box-area{
+        margin: 0 10px;
+    }
+
+    .left-box{
+        height: 100px;
+        overflow: hidden;
+    }
+
+    .right-box{
+        padding: 20px
+    }
+}
