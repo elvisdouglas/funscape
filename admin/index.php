@@ -1,8 +1,20 @@
 <?php
-include "include/header.php";
-?>
+include 'conn.php';
 
-<body>
+?>
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Funscape Game station</title>
+    <link rel="stylesheet" href="../bootstrap-5.2.3-dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../main.css" />
+</head>
+
+<body style="background: url('../images/btt.png'); background-size: cover; background-repeat: no-repeat; background-position: center; background-attachment: fixed;">
     <!--------main container------------>
     <div class="container d-flex justify-content-center align-items-center min-vh-100">
         <!---------login container------------------->
@@ -10,7 +22,7 @@ include "include/header.php";
             <!----------------left box-------------------------->
             <div class="col-md-6 rounded-4 d-flex justify-content-center align-items-center flex-column left-box">
                 <div class="featured-image mb-3">
-                    <img src="images/km.png" class="img-fluid d-flex" />
+                    <img src="../images/nfs.png" class="img-fluid d-flex" />
                 </div>
                 <p class="text-bg-danger fs-2" style="font-family: 'Courier New', sans-serif; font-weight: bolder">Welcome to Funscape</p>
                 <small class="text-bg-danger text-wrap text-center" style="width: 22rem;font-family: 'Courier New', sans-serif">Enjoy the Gaming Experience</small>
@@ -18,7 +30,7 @@ include "include/header.php";
             <div class="col-md-6 right-box">
                 <div class="row align-items-center">
                     <div class="header-text mb-4">
-                        <h1 class="tito">Hello, Again</h1>
+                        <h1 class="tito">Hello, Admin</h1>
                         <h3 class="tito1">Welcome back to Funscape Manager</h3>
                     </div>
                     <div class="input-group mb-3">
@@ -28,7 +40,7 @@ include "include/header.php";
                         <input type="password" class="form-control form-control-lg bg-light fs-6" placeholder="Enter Password">
                     </div>
                     <div class="input-group mb-3">
-                        <button class="btn btn-lg btn btn-outline-danger w-100 fs-6">Login</button>
+                        <button class="btn btn-lg btn btn-outline-info w-100 fs-6">Login</button>
                     </div>
                 </div>
             </div>
