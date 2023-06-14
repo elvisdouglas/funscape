@@ -1,5 +1,6 @@
 <?php
 
+//include('conn.php');
 
 if (empty($_POST["name"])) {
     die("Name is required");
@@ -26,4 +27,37 @@ if ($_POST["password"] !== $_POST["password_confirmation"]) {
 }
 
 
-print_r($_POST);
+$password_hash = password_hash($_POST["password"], PASSWORD_DEFAULT);
+
+$con = require __DIR__ . "/conn.php";
+
+
+$sql = "INSERT INTO user (name, email, password_hash)
+        VALUES (?, ?, ?)";
+
+$stmt = $con->stmt_init();
+
+if (!$stmt->prepare($sql)) {
+    die("SQL error: " . $con->error);
+}
+
+$stmt->bind_param(
+    "sss",
+    $_POST["name"],
+    $_POST["email"],
+    $password_hash
+);
+
+if ($stmt->execute()) {
+
+    //refresh time of 2 secs
+    header("Location: signup-success.html");
+    exit;
+} else {
+
+    if ($mysqli->errno === 1062) {
+        die("email already taken");
+    } else {
+        die($mysqli->error . " " . $mysqli->errno);
+    }
+}

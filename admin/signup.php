@@ -36,7 +36,7 @@ include 'conn.php';
 
 
                     <!---------------------------register form----------------------------------->
-                    <form action="register.php" method="post">
+                    <form action="register.php" method="post" novalidate>
                         <div class="form-group mb-2">
                             <label for="name" class="form-label" style="color: #fff; font-weight: bold;">Name</label>
                             <input type="text" id="name" name="name" class="form-control form-control-lg bg-light fs-6" placeholder="Enter name">
