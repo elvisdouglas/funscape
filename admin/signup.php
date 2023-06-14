@@ -33,22 +33,25 @@ include 'conn.php';
                         <h1 class="tito">Register User</h1>
                         <h3 class="tito1">Welcome to Funscape</h3>
                     </div>
-                    <form>
+
+
+                    <!---------------------------register form----------------------------------->
+                    <form action="register.php" method="post">
                         <div class="form-group mb-2">
                             <label for="name" class="form-label" style="color: #fff; font-weight: bold;">Name</label>
                             <input type="text" id="name" name="name" class="form-control form-control-lg bg-light fs-6" placeholder="Enter name">
                         </div>
                         <div class="form-group mb-2">
                             <label for="email" class="form-label" style="color: #fff; font-weight: bold;">Email</label>
-                            <input type="email" id="email" name="email" class="form-control form-control-lg bg-light fs-6" placeholder="Enter Email">
+                            <input type="email" id="email" name="email" class="form-control form-control-lg bg-light fs-6" placeholder="Enter Email Address">
                         </div>
                         <div class="form-group mb-2">
                             <label for="password" class="form-label" style="color: #fff; font-weight: bold;">Password</label>
-                            <input type="password" id="password" name="password" class="form-control form-control-lg bg-light fs-6" placeholder="Enter Access password">
+                            <input type="password" id="password" name="password" class="form-control form-control-lg bg-light fs-6" placeholder="Enter password">
                         </div>
                         <div class="form-group mb-2">
-                            <label for="password_confirm" class="form-label" style="color: #fff; font-weight: bold;">Repeat password</label>
-                            <input type="password" class="form-control form-control-lg bg-light fs-6" placeholder="Repeat Password">
+                            <label for="password_confirmation" class="form-label" style="color: #fff; font-weight: bold;">Repeat password</label>
+                            <input type="password" id="password_confirmation" name="password_confirmation" class="form-control form-control-lg bg-light fs-6" placeholder="Repeat Password">
                         </div>
                         <div class="input-group mb-2">
                             <button class="btn btn-lg btn btn-outline-info w-100 fs-6">Register</button>
