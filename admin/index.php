@@ -45,7 +45,7 @@ include 'conn.php';
                         <button class="btn btn-lg btn btn-outline-info w-100 fs-6">Login</button>
                     </div>
                     <div class="form-group mb-3">
-                        <button class="btn btn-lg btn btn-outline-info w-100 fs-6"><a href="signup.php">Sign Up</a></button>
+                        <button class="btn btn-lg btn btn-outline-info w-100 fs-6"><a href="signup.php" style="font-weight:bolder; color: #fff">Sign Up</a></button>
                     </div>
                 </div>
             </div>

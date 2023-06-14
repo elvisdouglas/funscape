@@ -5,33 +5,45 @@
 
 
 
-if (empty($_POST["names"])) {
-    die("Name is required");
+if (empty($_POST["name"])) {
+    echo("Name is required");
+    header("refresh:3;url=signup.php");
+    exit();
 }
 
 if (!filter_var($_POST["email"], FILTER_VALIDATE_EMAIL)) {
-    die("Valid email is required");
+    echo("Valid email is required");
+    header("refresh:3;url=signup.php");
+    exit();
 }
 
 if (strlen($_POST["password"]) < 8) {
-    die("Password must be at least 8 characters");
+    echo("Password must be at least 8 characters");
+    header("refresh:3;url=signup.php");
+    exit();
 }
 
 if (!preg_match("/[a-z]/i", $_POST["password"])) {
-    die("Password must contain at least one letter");
+    echo("Password must contain at least one letter");
+    header("refresh:3;url=signup.php");
+    exit();
 }
 
 if (!preg_match("/[0-9]/", $_POST["password"])) {
-    die("Password must contain at least one number");
+    echo("Password must contain at least one number");
+    header("refresh:3;url=signup.php");
+    exit();
 }
 
 if ($_POST["password"] !== $_POST["password_confirmation"]) {
-    die("Passwords don't match");
+    echo("Passwords don't match");
+    header("refresh:3;url=signup.php");
+    exit();
 }
 
 
 //retrieving data from form
-$username = $_POST["names"];
+$username = $_POST["name"];
 $email = $_POST["email"];
 $password_hash = password_hash($_POST["password"], PASSWORD_DEFAULT);
 
@@ -43,13 +55,15 @@ $sql = "INSERT INTO user (names, email, password_hash)
 
 
 if ($conn->query($sql) === TRUE) {
+    //redirect to admin dashboard
     echo "User registered successfully";
-    header("Location: index.php");
+    header("refresh:3;url=home.php");
     exit;
 } else {
     if ($mysqli->errno === 1062) {
-        die("email already taken");
-        header("Location: register.php");
+        echo("email already taken");
+        header("refresh:3;url=signup.php");
+        exit();
     } else {
         die($mysqli->error . " " . $mysqli->errno);
     }
