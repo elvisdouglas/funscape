@@ -34,11 +34,11 @@ include 'conn.php';
                         <h3 class="tito1">Welcome to Funscape </h3>
                     </div>
                     <div class="form-group mb-2">
-                        <label for="email" class="form-label">Email</label>
+                        <label for="email" class="form-label" style="color: #fff; font-weight: bold;">Email</label>
                         <input type="email" id="email" name="email" class="form-control fs-6" placeholder="Enter Access Email">
                     </div>
                     <div class="form-group mb-2">
-                        <label for="password" class="form-label">password</label>
+                        <label for="password" class="form-label" style="color: #fff; font-weight: bold;">password</label>
                         <input type="password" id="password" name="password" class="form-control fs-6" placeholder="Enter Password">
                     </div>
                     <div class="form-group mb-3">

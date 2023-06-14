@@ -22,11 +22,11 @@ include "include/header.php";
                         <h3 class="tito1">Welcome to Funscape </h3>
                     </div>
                     <div class="form-group mb-3">
-                        <label for="email" class="form-label">Email</label>
+                        <label for="email" class="form-label" style="color: #fff; font-weight: bold;">Email</label>
                         <input type="text" class="form-control form-control-lg bg-light fs-6" placeholder="Enter Access Email">
                     </div>
                     <div class="form-group mb-3">
-                        <label for="password" class="form-label">password</label>
+                        <label for="password" class="form-label" style="color: #fff; font-weight: bold;">password</label>
                         <input type="password" class="form-control form-control-lg bg-light fs-6" placeholder="Enter Password">
                     </div>
                     <div class="input-group mb-3">
