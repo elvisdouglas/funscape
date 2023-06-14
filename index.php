@@ -19,12 +19,14 @@ include "include/header.php";
                 <div class="row align-items-center">
                     <div class="header-text mb-4">
                         <h1 class="tito">Hello, Again</h1>
-                        <h3 class="tito1">Welcome back to Funscape Manager</h3>
+                        <h3 class="tito1">Welcome to Funscape </h3>
                     </div>
-                    <div class="input-group mb-3">
-                        <input type="text" class="form-control form-control-lg bg-light fs-6" placeholder="Enter Access name">
+                    <div class="form-group mb-3">
+                        <label for="email" class="form-label">Email</label>
+                        <input type="text" class="form-control form-control-lg bg-light fs-6" placeholder="Enter Access Email">
                     </div>
-                    <div class="input-group mb-3">
+                    <div class="form-group mb-3">
+                        <label for="password" class="form-label">password</label>
                         <input type="password" class="form-control form-control-lg bg-light fs-6" placeholder="Enter Password">
                     </div>
                     <div class="input-group mb-3">

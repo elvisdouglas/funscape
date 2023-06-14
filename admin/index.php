@@ -31,16 +31,21 @@ include 'conn.php';
                 <div class="row align-items-center">
                     <div class="header-text mb-4">
                         <h1 class="tito">Hello, Admin</h1>
-                        <h3 class="tito1">Welcome back to Funscape Manager</h3>
+                        <h3 class="tito1">Welcome to Funscape </h3>
                     </div>
-                    <div class="input-group mb-3">
-                        <input type="text" class="form-control form-control-lg bg-light fs-6" placeholder="Enter Access name">
+                    <div class="form-group mb-2">
+                        <label for="email" class="form-label">Email</label>
+                        <input type="email" id="email" name="email" class="form-control fs-6" placeholder="Enter Access Email">
                     </div>
-                    <div class="input-group mb-3">
-                        <input type="password" class="form-control form-control-lg bg-light fs-6" placeholder="Enter Password">
+                    <div class="form-group mb-2">
+                        <label for="password" class="form-label">password</label>
+                        <input type="password" id="password" name="password" class="form-control fs-6" placeholder="Enter Password">
                     </div>
-                    <div class="input-group mb-3">
+                    <div class="form-group mb-3">
                         <button class="btn btn-lg btn btn-outline-info w-100 fs-6">Login</button>
+                    </div>
+                    <div class="form-group mb-3">
+                        <button class="btn btn-lg btn btn-outline-info w-100 fs-6"><a href="signup.php">Sign Up</a></button>
                     </div>
                 </div>
             </div>
