@@ -1,6 +1,9 @@
 <?php
 
 //include('conn.php');
+//require_once('mysqli.php');
+
+
 
 if (empty($_POST["name"])) {
     die("Name is required");
@@ -27,28 +30,45 @@ if ($_POST["password"] !== $_POST["password_confirmation"]) {
 }
 
 
+//retrieving data from form
+$username = $_POST["name"];
+$email = $_POST["email"];
 $password_hash = password_hash($_POST["password"], PASSWORD_DEFAULT);
 
-$con = require __DIR__ . "/conn.php";
+$conn = require __DIR__ . "conn.php";
 
 
 $sql = "INSERT INTO user (name, email, password_hash)
-        VALUES (?, ?, ?)";
+        VALUES ('$username', '$email', '$password_hash')";
 
-//having and error on line 38
-$stmt = $con->stmt_init();
 
-if (!$stmt->prepare($sql)) {
-    die("SQL error: " . $con->error);
+if ($conn->query($sql) === TRUE) {
+    echo "User registered successfully";
+    header("Location: index.php");
+    exit;
+} else {
+    if ($mysqli->errno === 1062) {
+        die("email already taken");
+    } else {
+        die($mysqli->error . " " . $mysqli->errno);
+    }
+    //echo "Error: " . $sql . "<br>" . $con->error;
 }
 
-$stmt->bind_param(
-    "sss",
-    $_POST["name"],
-    $_POST["email"],
-    $password_hash
-);
+//having and error on line 38
+//$stmt = $con->stmt_init();
 
+//if (!$stmt->prepare($sql)) {
+//    die("SQL error: " . $con->error);
+//}
+
+//$stmt->bind_param(
+//    "sss",
+//    $_POST["name"],
+//    $_POST["email"],
+//    $password_hash
+//);
+/*
 if ($stmt->execute()) {
 
     //refresh time of 2 secs
@@ -62,3 +82,4 @@ if ($stmt->execute()) {
         die($mysqli->error . " " . $mysqli->errno);
     }
 }
+*/
