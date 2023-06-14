@@ -35,6 +35,7 @@ $con = require __DIR__ . "/conn.php";
 $sql = "INSERT INTO user (name, email, password_hash)
         VALUES (?, ?, ?)";
 
+//having and error on line 38
 $stmt = $con->stmt_init();
 
 if (!$stmt->prepare($sql)) {
