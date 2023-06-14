@@ -39,7 +39,7 @@ include 'conn.php';
                     <form action="register.php" method="post" novalidate>
                         <div class="form-group mb-2">
                             <label for="name" class="form-label" style="color: #fff; font-weight: bold;">Name</label>
-                            <input type="text" id="name" name="name" class="form-control form-control-lg bg-light fs-6" placeholder="Enter name">
+                            <input type="text" id="names" name="names" class="form-control form-control-lg bg-light fs-6" placeholder="Enter name">
                         </div>
                         <div class="form-group mb-2">
                             <label for="email" class="form-label" style="color: #fff; font-weight: bold;">Email</label>

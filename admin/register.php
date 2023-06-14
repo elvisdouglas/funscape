@@ -5,7 +5,7 @@
 
 
 
-if (empty($_POST["name"])) {
+if (empty($_POST["names"])) {
     die("Name is required");
 }
 
@@ -31,14 +31,14 @@ if ($_POST["password"] !== $_POST["password_confirmation"]) {
 
 
 //retrieving data from form
-$username = $_POST["name"];
+$username = $_POST["names"];
 $email = $_POST["email"];
 $password_hash = password_hash($_POST["password"], PASSWORD_DEFAULT);
 
-$conn = require __DIR__ . "conn.php";
+$conn = require __DIR__ . "/conn.php";
 
 
-$sql = "INSERT INTO user (name, email, password_hash)
+$sql = "INSERT INTO user (names, email, password_hash)
         VALUES ('$username', '$email', '$password_hash')";
 
 
@@ -49,6 +49,7 @@ if ($conn->query($sql) === TRUE) {
 } else {
     if ($mysqli->errno === 1062) {
         die("email already taken");
+        header("Location: register.php");
     } else {
         die($mysqli->error . " " . $mysqli->errno);
     }
