@@ -31,7 +31,6 @@ include 'conn.php';
                 <div class="row align-items-center">
                     <div class="header-text mb-4">
                         <h1 class="tito">Register User</h1>
-                        <h3 class="tito1">Welcome to Funscape</h3>
                     </div>
 
 
@@ -55,6 +54,9 @@ include 'conn.php';
                         </div>
                         <div class="input-group mb-2">
                             <button class="btn btn-lg btn btn-outline-info w-100 fs-6">Register</button>
+                        </div>
+                        <div class="input-group mb-2">
+                            <button class="btn btn-lg btn btn-outline-danger w-100 fs-6"><a href="home.php" style="color: #fff; text-decoration: none; font-weight: bold;" >Back</a></button>
                         </div>
                     </form>
 
