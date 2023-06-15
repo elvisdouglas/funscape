@@ -58,7 +58,7 @@ if ($conn->query($sql) === TRUE) {
     //redirect to admin dashboard
     echo "User registered successfully";
     header("refresh:3;url=home.php");
-    exit;
+    exit();
 } else {
     if ($mysqli->errno === 1062) {
         echo("email already taken");

@@ -1,21 +1,28 @@
 <?php
 include 'conn.php';
+include 'include/header.php';
 
+session_start();
+
+if (isset($_SESSION["user_id"])){
+    $mysqli = require __DIR__ . "/conn.php";
+
+    $sql = "SELECT * FROM user 
+            WHERE id = {$_SESSION["user_id"]}";
+
+    $result = $mysqli->query($sql);
+
+    $user = $result->fetch_assoc();
+}
 ?>
-<!DOCTYPE html>
-<html>
 
-<head>
-    <meta charset="utf-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Funscape Game station</title>
-    <link rel="stylesheet" href="../bootstrap-5.2.3-dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="../main.css" />
-</head>
+<?php if (isset($_SESSION["user_id"])): ?>
+    <p>You are logged in</p>
+    <?php else: ?>
+        <p><a href="login.php">Login</a> or <a href="register.php">Sign up</a></p>
+    <?php endif ?>
 
-<body style="background: url('../images/btt.png'); background-size: cover; background-repeat: no-repeat; background-position: center; background-attachment: fixed;">
-    <!--------main container------------>
+<!--------main container------------>
     <div class="container d-flex justify-content-center align-items-center min-vh-100">
         <!---------login container------------------->
         <div class="row border rounded-4 p-3 shadow box-area">
@@ -30,22 +37,11 @@ include 'conn.php';
             <div class="col-md-6 right-box">
                 <div class="row align-items-center">
                     <div class="header-text mb-4">
-                        <h1 class="tito">Hello, Admin</h1>
+                        <h1 class="tito">Hello, <?= htmlspecialchars($user["names"]) ?></h1>
                         <h3 class="tito1">Welcome to Funscape </h3>
                     </div>
-                    <div class="form-group mb-2">
-                        <label for="email" class="form-label" style="color: #fff; font-weight: bold;">Email</label>
-                        <input type="email" id="email" name="email" class="form-control fs-6" placeholder="Enter Access Email">
-                    </div>
-                    <div class="form-group mb-2">
-                        <label for="password" class="form-label" style="color: #fff; font-weight: bold;">password</label>
-                        <input type="password" id="password" name="password" class="form-control fs-6" placeholder="Enter Password">
-                    </div>
                     <div class="form-group mb-3">
-                        <button class="btn btn-lg btn btn-outline-info w-100 fs-6">Login</button>
-                    </div>
-                    <div class="form-group mb-3">
-                        <button class="btn btn-lg btn btn-outline-info w-100 fs-6"><a href="signup.php" style="font-weight:bolder; color: #fff">Sign Up</a></button>
+                        <button class="btn btn-lg btn btn-outline-danger w-100 fs-6"><a href="logout.php" style="font-weight:bolder; color: #fff; text-decoration: none;">Log Out</a></button>
                     </div>
                 </div>
             </div>
