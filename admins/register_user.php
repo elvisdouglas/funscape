@@ -46,12 +46,13 @@ if ($_POST["password"] !== $_POST["password_confirmation"]) {
 $username = $_POST["name"];
 $email = $_POST["email"];
 $password_hash = password_hash($_POST["password"], PASSWORD_DEFAULT);
+$user_type = $_POST["user_type"];
 
 $conn = require __DIR__ . "/conn.php";
 
 
-$sql = "INSERT INTO user (names, email, password_hash)
-        VALUES ('$username', '$email', '$password_hash')";
+$sql = "INSERT INTO user (names, email, password_hash,user_type)
+        VALUES ('$username', '$email', '$password_hash', '$user_type')";
 
 
 if ($conn->query($sql) === TRUE) {

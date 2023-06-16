@@ -72,6 +72,7 @@ $result = mysqli_query($mysqli,$sql);
           <tr class="bg-dark text-white">
             <th> Username </th>
             <th>Email </th>
+            <th>Role </th>
             <th>EDIT </th>
             <th>DELETE </th>
           </tr>
@@ -86,6 +87,7 @@ $result = mysqli_query($mysqli,$sql);
           <!-------  fetching users from database  ------->
               <td><?php echo $row['names'] ?></td>
               <td><?php echo $row['email'] ?></td>
+              <td><?php echo $row['user_type'] ?></td>
               <td><a href="#" class="btn btn-success">Edit</a></td>
               <td>
                 <form action="delete_user.php" method="post">

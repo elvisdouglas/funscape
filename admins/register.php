@@ -34,6 +34,7 @@ include 'conn.php';
                         <h1 class="tito">Register Admin</h1>
                     </div>
 
+                    
                     <!---------------------------register form----------------------------------->
                     <form action="code.php" method="post" novalidate>
                         <div class="form-group mb-2">
