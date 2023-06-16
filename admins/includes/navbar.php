@@ -38,6 +38,7 @@
       <h6 class="collapse-header">Users Manager</h6>
       <a class="collapse-item" href="register.php">Add Admin</a>
       <a class="collapse-item" href="signup.php">Add Users</a>
+      <a class="collapse-item" href="admins.php">View Admins</a>
       <a class="collapse-item" href="users.php">View Users</a>
     </div>
   </div>

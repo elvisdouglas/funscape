@@ -10,16 +10,16 @@ $result = mysqli_query($mysqli,$sql);
 ?>
 
 
-<div class="modal fade" id="addadminprofile" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="#" tabindex="-1" role="dialog" aria-labelledby="#" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Add New Admin</h5>
+        <h5 class="bg-danger text-white" id="#">Add New Admin</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-      <form action="code.php" method="post" novalidate>
+      <!-------------<form action="code.php" method="post" novalidate>  
 
         <div class="modal-body">
 
@@ -45,11 +45,12 @@ $result = mysqli_query($mysqli,$sql);
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
             <button name="register" class="btn btn-danger">Save</button>
         </div>
-      </form>
+      </form> -->
 
     </div>
   </div>
 </div>
+
 
 
 <div class="container-fluid">
@@ -58,8 +59,8 @@ $result = mysqli_query($mysqli,$sql);
 <div class="card shadow mb-4">
   <div class="card-header py-3">
     <h6 class="m-0 font-weight-bold text-primary">Admin Profile 
-            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addadminprofile">
-              Add Admin Profile 
+            <button type="button" class="btn btn-danger" >
+            <a class="btn btn-danger text-white"href="register.php" style="text-decoration: none;">Add New Admin</a>
             </button>
     </h6>
   </div>
@@ -71,7 +72,7 @@ $result = mysqli_query($mysqli,$sql);
       <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
         <thead>
           <tr class="bg-dark text-white">
-            <th>Username </th>
+            <th>Admin name </th>
             <th>Email </th>
             <th>EDIT </th>
             <th>DELETE </th>
