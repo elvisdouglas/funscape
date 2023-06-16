@@ -52,6 +52,7 @@ include 'conn.php';
                             <label for="password_confirmation" class="form-label" style="color: #fff; font-weight: bold;">Repeat password</label>
                             <input type="password" id="password_confirmation" name="password_confirmation" class="form-control form-control-lg bg-light fs-6" placeholder="Repeat Password">
                         </div>
+                        <input type="hidden" name="user_type" value="admin">
                         <div class="input-group mb-2">
                             <button class="btn btn-lg btn btn-outline-info w-100 fs-6" style="color: #fff; text-decoration: none; font-weight: bold;">Register</button>
                         </div>

@@ -48,7 +48,7 @@
 
 
 <li class="nav-item">
-  <a class="nav-link" href="register.php">
+  <a class="nav-link" href="admins.php">
     <i class="fas fa-fw fa-chart-area"></i>
     <span>Admin setup</span></a>
 </li>

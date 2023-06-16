@@ -46,6 +46,7 @@ if ($_POST["password"] !== $_POST["password_confirmation"]) {
 $username = $_POST["name"];
 $email = $_POST["email"];
 $password_hash = password_hash($_POST["password"], PASSWORD_DEFAULT);
+$user_type = $_POST["user_type"];
 
 $conn = require __DIR__ . "/conn.php";
 
@@ -61,8 +62,8 @@ if($number_of_rows != 0){
     header("refresh:2;url=register.php");
 }else{
     
-    $sql = "INSERT INTO register (username, email, password_hash)
-        VALUES ('$username', '$email', '$password_hash')";
+    $sql = "INSERT INTO register (username, email, password_hash,user_type)
+        VALUES ('$username', '$email', '$password_hash', '$user_type')";
 
 $assign = mysqli_query($conn, $sql);
 if ($assign == true) {
