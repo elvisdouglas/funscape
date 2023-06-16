@@ -9,7 +9,7 @@ if (empty($_POST["name"])) {
     echo("Name is required");
     header("refresh:3;url=signup.php");
     exit();
-}
+} 
 
 if (!filter_var($_POST["email"], FILTER_VALIDATE_EMAIL)) {
     echo("Valid email is required");

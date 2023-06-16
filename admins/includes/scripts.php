@@ -103,20 +103,20 @@ if(isset($_POST['register']))
         if($query_run)
         {
             echo "done";
-            $_SESSION['success'] =  "Admin is Added Successfully";
+            echo("Admin is Added Successfully");
             header("refresh:3;url=register.php");
         }
         else 
         {
             echo "not done";
-            $_SESSION['status'] =  "Admin is Not Added";
+            echo("Admin is Not Added");
             header("refresh:3;url=register.php");
         }
     }
     else 
     {
         echo "pass no match";
-        $_SESSION['status'] =  "Password and Confirm Password Does not Match";
+        echo("Password and Confirm Password Does not Match");
         header("refresh:3;url=register.php");
     }
 

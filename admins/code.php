@@ -36,7 +36,6 @@ if ($_POST["password"] !== $_POST["confirm_password"]) {
     exit();
 }
 
-
 //retrieving data from form
 $username = $_POST["name"];
 $email = $_POST["email"];
@@ -52,7 +51,7 @@ $sql = "INSERT INTO register (username, email, password_hash)
 if ($conn->query($sql) === TRUE) {
     //redirect to admin dashboard
     echo "Admin registered successfully";
-    header("refresh:3;url=register.php");
+    header("refresh:3;url=login.php");
     exit();
 } else {
     if ($mysqli->errno === 1062) {

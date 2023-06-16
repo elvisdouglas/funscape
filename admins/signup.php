@@ -12,8 +12,6 @@ include 'conn.php';
     <title>Funscape Game station</title>
     <link rel="stylesheet" href="../bootstrap-5.2.3-dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="../main.css" />
-    <script src="https://unpkg.com/just-validate@latest/dist/just-validate.production.min.js" defer></script>
-    <script src="../js/validation.js" defer></script>
 
 </head>
 
@@ -37,7 +35,7 @@ include 'conn.php';
                     </div>
 
                     <!---------------------------register form----------------------------------->
-                    <form action="register_user.php" method="post" id="signup" novalidate>
+                    <form action="register_user.php" method="post" novalidate>
                         <div class="form-group mb-2">
                             <label for="name" class="form-label" style="color: #fff; font-weight: bold;">Name</label>
                             <input type="text" id="name" name="name" class="form-control form-control-lg bg-light fs-6" placeholder="Enter name">
