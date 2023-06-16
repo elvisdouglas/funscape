@@ -88,7 +88,11 @@ $result = mysqli_query($mysqli,$sql);
               <td><?php echo $row['username'] ?></td>
               <td><?php echo $row['email'] ?></td>
               <td><a href="#" class="btn btn-success">Edit</a></td>
-              <td><a href="#" class="btn btn-danger">Delete</a></td>
+              <td>
+              <form action="delete_admin.php" method="post">
+                <button type="submit" name="admin_delete" value="<?=$row['id'];?>"class="btn btn-danger">Delete</button>
+                </form> 
+              </td>
           </tr>
           <?php
           }

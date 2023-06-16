@@ -2,7 +2,6 @@
 include('includes/header.php'); 
 include('includes/navbar.php'); 
 
-
 $mysqli = require __DIR__ . "/conn.php";
 $sql = sprintf("SELECT * FROM user");
 $result = mysqli_query($mysqli,$sql);
@@ -88,7 +87,11 @@ $result = mysqli_query($mysqli,$sql);
               <td><?php echo $row['names'] ?></td>
               <td><?php echo $row['email'] ?></td>
               <td><a href="#" class="btn btn-success">Edit</a></td>
-              <td><a href="#" class="btn btn-danger">Delete</a></td>
+              <td>
+                <form action="delete_user.php" method="post">
+                <button type="submit" name="user_delete" value="<?=$row['id'];?>"class="btn btn-danger">Delete</button>
+                </form>                
+              </td>
           </tr>
           <?php
           }
