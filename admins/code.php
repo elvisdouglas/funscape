@@ -48,10 +48,23 @@ $sql = "INSERT INTO register (username, email, password_hash)
         VALUES ('$username', '$email', '$password_hash')";
 
 
+
+//retrieving data from form
+$username = $_POST["name"];
+$email = $_POST["email"];
+$password_hash = password_hash($_POST["password"], PASSWORD_DEFAULT);
+
+$conn = require __DIR__ . "/conn.php";
+
+
+$sql = "INSERT INTO register (username, email, password_hash)
+        VALUES ('$username', '$email', '$password_hash')";
+
+
 if ($conn->query($sql) === TRUE) {
     //redirect to admin dashboard
     echo "Admin registered successfully";
-    header("refresh:3;url=login.php");
+    header("refresh:3;url=index.php");
     exit();
 } else {
     if ($mysqli->errno === 1062) {
@@ -65,6 +78,29 @@ if ($conn->query($sql) === TRUE) {
 }
 
 
+
+
+
+
+
+/*
+if ($conn->query($sql) === TRUE) {
+    //redirect to admin dashboard
+    echo "Admin registered successfully";
+    header("refresh:3;url=index.php");
+    exit();
+} else {
+    if ($mysqli->errno === 1062) {
+        echo("email already taken");
+        header("refresh:3;url=register.php");
+        exit();
+    } else {
+        die($mysqli->error . " " . $mysqli->errno);
+    }
+    //echo "Error: " . $sql . "<br>" . $con->error;
+}
+
+*/
 
 
 

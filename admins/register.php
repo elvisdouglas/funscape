@@ -19,7 +19,7 @@ $result = mysqli_query($mysqli,$sql);
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-      <form action="code.php" method="POST">
+      <form action="code.php" method="post" novalidate>
 
         <div class="modal-body">
 
@@ -43,7 +43,7 @@ $result = mysqli_query($mysqli,$sql);
         </div> 
         <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            <button type="submit" name="register" class="btn btn-danger">Save</button>
+            <button name="register" class="btn btn-danger">Save</button>
         </div>
       </form>
 
