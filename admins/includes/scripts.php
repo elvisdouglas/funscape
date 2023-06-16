@@ -85,41 +85,5 @@ if ($conn->query($sql) === TRUE) {
 }
 */
 
-$conn = mysqli_connect("localhost","root","","funscape");
-
-//retrieving data from database
-if(isset($_POST['register']))
-{
-    $username = $_POST['username'];
-    $email = $_POST['email'];
-    $password = $_POST['password'];
-    $password_hash = password_hash($_POST['password'], PASSWORD_DEFAULT);
-
-    if($password === $password_hash)
-    {
-        $query = "INSERT INTO register (username,email,password_hash) VALUES ('$username','$email','$password_hash')";
-        $query_run = mysqli_query($conn, $query);
-    
-        if($query_run)
-        {
-            echo "done";
-            echo("Admin is Added Successfully");
-            header("refresh:3;url=register.php");
-        }
-        else 
-        {
-            echo "not done";
-            echo("Admin is Not Added");
-            header("refresh:3;url=register.php");
-        }
-    }
-    else 
-    {
-        echo "pass no match";
-        echo("Password and Confirm Password Does not Match");
-        header("refresh:3;url=register.php");
-    }
-
-}
 
 ?>
