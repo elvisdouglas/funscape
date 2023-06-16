@@ -40,7 +40,7 @@ if ($_POST["password"] !== $_POST["password_confirmation"]) {
     header("refresh:3;url=signup.php");
     exit();
 }
- 
+
 
 //retrieving data from form
 $username = $_POST["name"];

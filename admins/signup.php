@@ -36,13 +36,12 @@ include 'conn.php';
                         <h1 class="tito">Register User</h1>
                     </div>
 
-
                     <!---------------------------register form----------------------------------->
                     <form action="register_user.php" method="post" id="signup" novalidate>
                         <div class="form-group mb-2">
                             <label for="name" class="form-label" style="color: #fff; font-weight: bold;">Name</label>
                             <input type="text" id="name" name="name" class="form-control form-control-lg bg-light fs-6" placeholder="Enter name">
-                        </div>
+                        </div> 
                         <div class="form-group mb-2">
                             <label for="email" class="form-label" style="color: #fff; font-weight: bold;">Email</label>
                             <input type="email" id="email" name="email" class="form-control form-control-lg bg-light fs-6" placeholder="Enter Email Address">

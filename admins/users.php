@@ -70,7 +70,7 @@ $result = mysqli_query($mysqli,$sql);
 
       <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
         <thead>
-          <tr>
+          <tr class="bg-dark text-white">
             <th> Username </th>
             <th>Email </th>
             <th>EDIT </th>
