@@ -1,20 +1,20 @@
 <?php
 include('includes/header.php'); 
 include('includes/navbar.php'); 
-include 'conn.php';
+
 
 $mysqli = require __DIR__ . "/conn.php";
-$sql = sprintf("SELECT * FROM register");
+$sql = sprintf("SELECT * FROM user");
 $result = mysqli_query($mysqli,$sql);
 
 ?>
 
-
+<!-----------Inserting users----------->
 <div class="modal fade" id="addadminprofile" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Add Admin Data</h5>
+        <h5 class="modal-title" id="exampleModalLabel">Users</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -57,9 +57,9 @@ $result = mysqli_query($mysqli,$sql);
 <!-- DataTales Example -->
 <div class="card shadow mb-4">
   <div class="card-header py-3">
-    <h6 class="m-0 font-weight-bold text-primary">Admin Profile 
-            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addadminprofile">
-              Add Admin Profile 
+    <h6 class="m-0 font-weight-bold text-primary">Funscape Users 
+            <button type="button" class="btn btn-Danger" data-toggle="modal" data-target="#" disabled>
+              #_user_Funscape
             </button>
     </h6>
   </div>
@@ -70,22 +70,22 @@ $result = mysqli_query($mysqli,$sql);
 
       <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
         <thead>
-          <tr class="bg-dark text-white">
-            <th>Username </th>
+          <tr>
+            <th> Username </th>
             <th>Email </th>
             <th>EDIT </th>
             <th>DELETE </th>
           </tr>
         </thead>
         <tbody>
-
-          <tr>
+     
+        <tr>
             <?php 
             while($row = mysqli_fetch_assoc($result))
             {
             ?>
-          <!-------  fetching admins from database  ------->
-              <td><?php echo $row['username'] ?></td>
+          <!-------  fetching users from database  ------->
+              <td><?php echo $row['names'] ?></td>
               <td><?php echo $row['email'] ?></td>
               <td><a href="#" class="btn btn-success">Edit</a></td>
               <td><a href="#" class="btn btn-danger">Delete</a></td>
@@ -93,8 +93,7 @@ $result = mysqli_query($mysqli,$sql);
           <?php
           }
 
-          ?>          
-          
+          ?>  
         
         </tbody>
       </table>

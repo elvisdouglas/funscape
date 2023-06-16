@@ -27,8 +27,8 @@ include 'conn.php';
                 <div class="featured-image mb-3">
                     <img src="../images/as.png" class="img-fluid d-flex" />
                 </div>
-                <p class="text-bg-danger fs-2" style="font-family: 'Courier New', sans-serif; font-weight: bolder">Welcome to Funscape</p>
-                <small class="text-bg-danger text-wrap text-center" style="width: 22rem;font-family: 'Courier New', sans-serif">Enjoy the Gaming Experience</small>
+                <p class="text-bg-danger fs-2" style="font-family: 'Courier New', sans-serif; font-weight: bolder; padding: 8px 20px;">Welcome to Funscape</p>
+                <small class="text-bg-danger text-wrap text-center" style="width: 18rem; font-family: 'Courier New', sans-serif; font-weight:bold; padding: 8px 18px;">Enjoy the Gaming Experience</small>
             </div>
             <div class="col-md-6 right-box">
                 <div class="row align-items-center">
@@ -56,10 +56,10 @@ include 'conn.php';
                             <input type="password" id="password_confirmation" name="password_confirmation" class="form-control form-control-lg bg-light fs-6" placeholder="Repeat Password">
                         </div>
                         <div class="input-group mb-2">
-                            <button class="btn btn-lg btn btn-outline-info w-100 fs-6">Register</button>
+                            <button class="btn btn-lg btn btn-outline-info w-100 fs-6" style="color: #fff; text-decoration: none; font-weight: bold;">Register</button>
                         </div>
                         <div class="input-group mb-2">
-                            <button class="btn btn-lg btn btn-outline-danger w-100 fs-6"><a href="index.php" style="color: #fff; text-decoration: none; font-weight: bold;" >Back</a></button>
+                            <button class="btn btn-lg btn btn-outline-danger w-100 fs-6"><a href="index.php" style="color: #fff; text-decoration: none; font-weight: bold;" >Dashboard</a></button>
                         </div>
                     </form>
 
