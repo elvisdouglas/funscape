@@ -34,7 +34,7 @@ include 'conn.php';
                         <h1 class="tito">Register Admin</h1>
                     </div>
 
-                    
+
                     <!---------------------------register form----------------------------------->
                     <form action="code.php" method="post" novalidate>
                         <div class="form-group mb-2">
@@ -55,10 +55,10 @@ include 'conn.php';
                         </div>
                         <input type="hidden" name="user_type" value="admin">
                         <div class="input-group mb-2">
-                            <button class="btn btn-lg btn btn-outline-info w-100 fs-6" style="color: #fff; text-decoration: none; font-weight: bold;">Register</button>
+                            <button class="btn btn-lg btn btn-secondary w-100 fs-6" style="color: #fff; text-decoration: none; font-weight: bold;">Register</button>
                         </div>
                         <div class="input-group mb-2">
-                            <button class="btn btn-lg btn btn-outline-danger w-100 fs-6"><a href="index.php" style="color: #fff; text-decoration: none; font-weight: bold;" >Dashboard</a></button>
+                            <button class="btn btn-lg btn btn-danger w-100 fs-6"><a href="admins.php" style="color: #fff; text-decoration: none; font-weight: bold;" >Back to Admin Dashboard</a></button>
                         </div>
                     </form>
 
