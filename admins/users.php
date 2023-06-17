@@ -88,7 +88,7 @@ $result = mysqli_query($mysqli,$sql);
               <td><?php echo $row['names'] ?></td>
               <td><?php echo $row['email'] ?></td>
               <td><?php echo $row['user_type'] ?></td>
-              <td><a href="#" class="btn btn-success">Edit</a></td>
+              <td><a href="edit_user.php?id=<?=$row['id'];?>" class="btn btn-success" >Edit</a></td>
               <td>
                 <form action="delete_user.php" method="post">
                 <button type="submit" name="user_delete" value="<?=$row['id'];?>"class="btn btn-danger">Delete</button>
