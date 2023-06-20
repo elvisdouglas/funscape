@@ -15,7 +15,7 @@ include 'conn.php';
 
 </head>
 
-<body style="background: url('../images/sc1.png'); background-size: cover; background-repeat: no-repeat; background-position: center; background-attachment: fixed;">
+<body style="background: url('../images/gr1.jpg'); background-size: cover; background-repeat: no-repeat; background-position: center; background-attachment: fixed;">
     <!--------main container------------>
     <div class="container d-flex justify-content-center align-items-center min-vh-100">
         <!---------login container------------------->
@@ -31,30 +31,26 @@ include 'conn.php';
             <div class="col-md-6 right-box">
                 <div class="row align-items-center">
                     <div class="header-text mb-4">
-                        <h1 class="tito">Register User</h1>
+                        <h1 class="tito">Add Screen</h1>
                     </div>
 
                     <!---------------------------register form----------------------------------->
-                    <form action="register_user.php" method="post" novalidate>
+                    <form action="screen_add.php" method="post" novalidate>
                         <div class="form-group mb-2">
-                            <label for="name" class="form-label" style="color: #fff; font-weight: bold;">Name</label>
+                            <label for="name" class="form-label" style="color: #fff; font-weight: bold;">Screen Name</label>
                             <input type="text" id="name" name="name" class="form-control form-control-lg bg-light fs-6" placeholder="Enter name">
-                        </div> 
-                        <div class="form-group mb-2">
-                            <label for="email" class="form-label" style="color: #fff; font-weight: bold;">Email</label>
-                            <input type="email" id="email" name="email" class="form-control form-control-lg bg-light fs-6" placeholder="Enter Email Address">
                         </div>
                         <div class="form-group mb-2">
-                            <label for="password" class="form-label" style="color: #fff; font-weight: bold;">Password</label>
-                            <input type="password" id="password" name="password" class="form-control form-control-lg bg-light fs-6" placeholder="Enter password">
+                            <label for="name" class="form-label" style="color: #fff; font-weight: bold;">Time</label>
+                            <input type="text" id="name" name="name" class="form-control form-control-lg bg-light fs-6" placeholder="Enter name">
                         </div>
                         <div class="form-group mb-2">
-                            <label for="password_confirmation" class="form-label" style="color: #fff; font-weight: bold;">Repeat password</label>
-                            <input type="password" id="password_confirmation" name="password_confirmation" class="form-control form-control-lg bg-light fs-6" placeholder="Repeat Password">
+                            <label for="name" class="form-label" style="color: #fff; font-weight: bold;">Price</label>
+                            <input type="text" id="name" name="name" class="form-control form-control-lg bg-light fs-6" placeholder="Enter name">
                         </div>
                         <input type="hidden" name="user_type" value="User">
                         <div class="input-group mb-2">
-                            <button class="btn btn-lg btn btn-secondary w-100 fs-6" style="color: #fff; text-decoration: none; font-weight: bold;">Register</button>
+                            <button class="btn btn-lg btn btn-secondary w-100 fs-6" style="color: #fff; text-decoration: none; font-weight: bold;">Add screen</button>
                         </div>
                         <div class="input-group mb-2">
                             <button class="btn btn-lg btn btn-danger w-100 fs-6"><a href="users.php" style="color: #fff; text-decoration: none; font-weight: bold;" >Back to Users Dashboard</a></button>

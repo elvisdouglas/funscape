@@ -63,11 +63,11 @@
   </a>
   <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
     <div class="bg-white py-2 collapse-inner rounded">
-      <h6 class="collapse-header">Custom Utilities:</h6>
-      <a class="collapse-item" href="utilities-color.html">Colors</a>
-      <a class="collapse-item" href="utilities-border.html">Borders</a>
-      <a class="collapse-item" href="utilities-animation.html">Animations</a>
-      <a class="collapse-item" href="utilities-other.html">Other</a>
+      <h6 class="collapse-header">Custom Screens</h6>
+      <a class="collapse-item" href="screen.php">Add Screen</a>
+      <a class="collapse-item" href="#">View screens</a>
+      <a class="collapse-item" href="#">Animations</a>
+      <a class="collapse-item" href="#">Other</a>
     </div>
   </div>
 </li>
