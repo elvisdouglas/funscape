@@ -1,4 +1,4 @@
-<?php
+<?php 
 
 $conn = require __DIR__ . "/conn.php";
 

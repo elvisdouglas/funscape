@@ -28,7 +28,6 @@ if(isset($_GET['id'])){
     if(mysqli_num_rows($user_run)>0){
         foreach($user_run as $admin){
 
-        
         ?>
             
     <form action="update_admin.php" method="post">
