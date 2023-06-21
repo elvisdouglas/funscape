@@ -28,6 +28,8 @@ include 'conn.php';
                 <p class="text-bg-danger fs-2" style="font-family: 'Courier New', sans-serif; font-weight: bolder; padding: 8px 20px;">Welcome to Funscape</p>
                 <small class="text-bg-danger text-wrap text-center" style="width: 18rem; font-family: 'Courier New', sans-serif; font-weight:bold; padding: 8px 18px;">Enjoy the Gaming Experience</small>
             </div>
+
+            <!----------------right box-------------------------->
             <div class="col-md-6 right-box">
                 <div class="row align-items-center">
                     <div class="header-text mb-4">
@@ -35,25 +37,37 @@ include 'conn.php';
                     </div>
 
                     <!---------------------------register form----------------------------------->
-                    <form action="screen_add.php" method="post" novalidate>
+                    <form action="add_screen.php" method="post" novalidate>
                         <div class="form-group mb-2">
                             <label for="name" class="form-label" style="color: #fff; font-weight: bold;">Screen Name</label>
-                            <input type="text" id="name" name="name" class="form-control form-control-lg bg-light fs-6" placeholder="Enter name">
+                            <input type="text" id="name" name="name" class="form-control form-control-lg bg-light fs-6" placeholder="Enter screen Name">
                         </div>
+
+                        <!--------------------------
+                        Adding time
                         <div class="form-group mb-2">
-                            <label for="name" class="form-label" style="color: #fff; font-weight: bold;">Time</label>
-                            <input type="text" id="name" name="name" class="form-control form-control-lg bg-light fs-6" placeholder="Enter name">
-                        </div>
+                        <select name="time">
+                            <option disabled selected>Choose Time</option>
+                            <option value="30">30 Minutes</option>
+                            <option value="60">1 Hours</option>
+                            <option value="90">1 Hour 30 minutes</option>
+                            <option value="120">2 Hours</option>
+                            <option value="180">3 Hours</option>
+                        </select>
+                        </div>  
+                        
+                        
                         <div class="form-group mb-2">
-                            <label for="name" class="form-label" style="color: #fff; font-weight: bold;">Price</label>
-                            <input type="text" id="name" name="name" class="form-control form-control-lg bg-light fs-6" placeholder="Enter name">
+                            <label for="price" class="form-label" style="color: #fff; font-weight: bold;">Price</label>
+                            <input type="text" id="price" name="price" class="form-control form-control-lg bg-light fs-6" placeholder="Enter Price" required>
                         </div>
-                        <input type="hidden" name="user_type" value="User">
+
+                        ----->
                         <div class="input-group mb-2">
                             <button class="btn btn-lg btn btn-secondary w-100 fs-6" style="color: #fff; text-decoration: none; font-weight: bold;">Add screen</button>
                         </div>
                         <div class="input-group mb-2">
-                            <button class="btn btn-lg btn btn-danger w-100 fs-6"><a href="users.php" style="color: #fff; text-decoration: none; font-weight: bold;" >Back to Users Dashboard</a></button>
+                            <button class="btn btn-lg btn btn-danger w-100 fs-6"><a href="../users.php" style="color: #fff; text-decoration: none; font-weight: bold;" >Back to Users Dashboard</a></button>
                         </div> 
                     </form>
 

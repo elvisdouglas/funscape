@@ -65,7 +65,7 @@
     <div class="bg-white py-2 collapse-inner rounded">
       <h6 class="collapse-header">Custom Screens</h6>
       <a class="collapse-item" href="screen.php">Add Screen</a>
-      <a class="collapse-item" href="#">View screens</a>
+      <a class="collapse-item" href="manage_screen.php">Manage screens</a>
       <a class="collapse-item" href="#">Animations</a>
       <a class="collapse-item" href="#">Other</a>
     </div>
