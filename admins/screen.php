@@ -67,7 +67,7 @@ include 'conn.php';
                             <button class="btn btn-lg btn btn-secondary w-100 fs-6" style="color: #fff; text-decoration: none; font-weight: bold;">Add screen</button>
                         </div>
                         <div class="input-group mb-2">
-                            <button class="btn btn-lg btn btn-danger w-100 fs-6"><a href="../users.php" style="color: #fff; text-decoration: none; font-weight: bold;" >Back to Users Dashboard</a></button>
+                            <button class="btn btn-lg btn btn-danger w-100 fs-6"><a href="manage_screen.php" style="color: #fff; text-decoration: none; font-weight: bold;" >Back to Users Dashboard</a></button>
                         </div> 
                     </form>
 
