@@ -44,7 +44,7 @@ $result = mysqli_query($mysqli,$sql);
               <td><a href="edit_screen.php?id=<?=$row['id'];?>" class="btn btn-success" >Edit</a></td>
               <td>
                 <form action="delete_screen.php" method="post">
-                <button type="submit" name="user_delete" value="<?=$row['id'];?>"class="btn btn-danger">Delete</button>
+                <button type="submit" name="screen_delete" value="<?=$row['id'];?>"class="btn btn-danger">Delete</button>
                 </form>                
               </td>
           </tr>
