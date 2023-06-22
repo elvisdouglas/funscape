@@ -67,7 +67,7 @@
       <a class="collapse-item" href="screen.php">Add Screen</a>
       <a class="collapse-item" href="manage_screen.php">Manage screens</a>
       <a class="collapse-item" href="gamer.php">Add gamer on screen</a>
-      <a class="collapse-item" href="#">Other</a>
+      <a class="collapse-item" href="gaming_screens.php">Manage gaming screens</a>
     </div>
   </div>
 </li>
