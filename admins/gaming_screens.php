@@ -47,12 +47,12 @@ $conn = require __DIR__ . "/conn.php";
             ?>
           <!-------  fetching users from database  ------->
                 <td><?php 
-                $screen_name = "SELECT screen FROM screen WHERE id= id";
+                
+                $screen_name = "SELECT * FROM screen WHERE id= '".$row['screen_id']."'";
                 $check = mysqli_query($conn,$screen_name);
                 if($check !== FALSE){
-                    while($row2 = mysqli_fetch_assoc($check)){                        
-                    echo $row2['screen'];
-                    }                    
+                    $row2 = mysqli_fetch_assoc($check);                        
+                    echo $row2['screen'];                                     
                 }else{
                     echo "Error executing the query" . mysqli_error($conn);
                 }
