@@ -31,10 +31,10 @@ $conn = require __DIR__ . "/conn.php";
         <thead>
           <tr class="bg-dark text-white">
             <th> Screen </th>
-            <th>Time </th>
-            <th>Price </th>
+            <th>Gamer's Time </th>
+            <th>Price </th>            
+            <th>Date and Time </th>
             <th>Status </th>
-            <th>EDIT </th>
             <th>DELETE </th>
           </tr>
         </thead>
@@ -64,12 +64,20 @@ $conn = require __DIR__ . "/conn.php";
             //echo $row2['']
                 ?></td>
                 <td><?php echo $row['time_limit'] ?></td>
-                <td><?php echo $row['price'] ?></td>
-                <td><?php echo $row['status_g'] ?></td>
-                <td><a href="edit_user.php?id=<?=$row['id'];?>" class="btn btn-success" >Edit</a></td>
+                <td><?php echo $row['price'] ?></td>                
+                <td><?php echo $row['date'] ?></td>
                 <td>
-                <form action="delete_user.php" method="post">
-                <button type="submit" name="user_delete" value="<?=$row['id'];?>"class="btn btn-danger">Delete</button>
+                  <?php 
+                  if($row['status_g']==1){
+                    echo '<p><a href="status.php?id='.$row['id'].'&status_g=0" class="btn btn-success"style="text-decoration:none;">Screen Used</a></p>';
+                  }else{
+                    echo '<p><a href="status.php?id='.$row['id'].'&status_g=1" class="btn btn-danger" style="text-decoration:none;">Gamer Done</a></p>';
+                  }
+                  ?>
+                </td>
+                <td>
+                <form action="delete_gamer.php" method="post">
+                <button type="submit" name="gamer_delete" value="<?=$row['id'];?>"class="btn btn-danger">Delete</button>
                 </form>                
               </td>
           </tr>
