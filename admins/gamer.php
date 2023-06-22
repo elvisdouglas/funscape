@@ -22,7 +22,7 @@ $conn = require __DIR__ . "/conn.php";
   </div>
 
     <div class="modal-body">
-    <form action="#" method="POST">
+    <form action="game_code.php" method="post">
 
         <div class="row">
             <?php
@@ -34,7 +34,7 @@ $conn = require __DIR__ . "/conn.php";
                 ?>
             <div class="form-group col-md-6 mb-3">
                 <label> Gamer screen </label>
-                <select name="" id="" class="form-control" required>
+                <select name="screen_id" class="form-control" required>
                     <option value="">Choose Screen</option>
                     <?php
                         foreach($g_run as $row) 
@@ -57,21 +57,25 @@ $conn = require __DIR__ . "/conn.php";
             
             <div class="form-group col-md-6 mb-3">
                 <label>Time</label>
-                <input type="text" name="time" class="form-control" placeholder="Time Duration" required>
+                <input type="number" name="timer" class="form-control" placeholder="Time Duration" required>
             </div>
             <div class="form-group col-md-6 mb-3">
                 <label>Price</label>
-                <input type="text" name="price" class="form-control" placeholder="Price" required>
+                <input type="number" name="price" class="form-control" placeholder="Price" required>
             </div>
             <div class="form-group col-md-6 mb-3">
-                <label>status</label>
-                <input type="text" name="status" class="form-control" placeholder="status" required>
+                <label for="status">Screen Status</label>
+                <select class="form-control" name="status" id="status">
+                <option>--Select screen status--</option>
+                    <option value="1">Screen Used</option>
+                    <option value="0">Screen Free</option>
+                </select>
             </div>
         
         </div> 
         <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            <button type="submit" name="register" class="btn btn-primary">Save</button>
+            <button type="submit" name="gamer" class="btn btn-danger">Gaming Time</button>
         </div>
         </form>
     </div>
