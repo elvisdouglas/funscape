@@ -53,11 +53,14 @@ $conn = require __DIR__ . "/conn.php";
             }
             
             ?>
-
             
             <div class="form-group col-md-6 mb-3">
-                <label>Time</label>
-                <input type="number" name="timer" class="form-control" placeholder="Time Duration" required>
+                <label>Hour</label>
+                <input type="number" name="hour" class="form-control" placeholder="Hour" required>
+            </div>
+            <div class="form-group col-md-6 mb-3">
+                <label>Minutes</label>
+                <input type="number" name="minute" class="form-control" placeholder="Minutes" required>
             </div>
             <div class="form-group col-md-6 mb-3">
                 <label>Price</label>
@@ -76,6 +79,7 @@ $conn = require __DIR__ . "/conn.php";
         <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
             <button type="submit" name="gamer" class="btn btn-danger">Gaming Time</button>
+            <script type="text/javascript" src="timer.js"></script>
         </div>
         </form>
     </div>

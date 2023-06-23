@@ -86,7 +86,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                             <input type="password" id="password" name="password" class="form-control fs-6" placeholder="Enter Password">
                         </div>
                         <div class="form-group mb-3">
-                            <button class="btn btn-lg btn btn-outline-info w-100 fs-6" style="font-weight: bold">Login</button>
+                            <button class="btn btn-lg btn btn-danger w-100 fs-6" style="font-weight: bold">Login</button>
                         </div>
                     </form>
                     

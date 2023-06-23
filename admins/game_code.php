@@ -4,12 +4,13 @@ $conn = require __DIR__ . "/conn.php";
 
 if(isset($_POST['gamer'])){
     $screen_id = $_POST['screen_id'];
-    $time = $_POST['timer'];
+    $hour = $_POST['hour'];
+    $minute = $_POST['minute'];
     $price = $_POST['price'];
     $status = $_POST['status'];
 
-    $query = "INSERT INTO gamer (screen_id, time_limit, price, status_g) 
-                VALUES ('$screen_id','$time','$price','$status')";
+    $query = "INSERT INTO gamer (screen_id, hour, minute, price, status_g) 
+                VALUES ('$screen_id','$hour', '$minute','$price','$status')";
     $query_run = mysqli_query($conn,$query);   
     
     if($query_run){

@@ -4,6 +4,10 @@ include('includes/header.php');
 include('includes/navbar.php'); 
 
 $conn = require __DIR__ . "/conn.php";
+$mysqli = require __DIR__ . "/conn.php";
+$sql = sprintf("SELECT * FROM gamer");
+$result = mysqli_query($mysqli,$sql);
+
 ?>
 
 
@@ -151,8 +155,58 @@ $conn = require __DIR__ . "/conn.php";
     </div>
   </div>
 
-  <!-- Content Row -->
+  <!-- Screens timer countdown -->
 
+  <div class="table-responsive">
+
+      <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+        <thead>
+          <tr class="bg-dark text-white">
+            <th> Screen </th>
+            <th>Time Left </th> 
+            <th>Gamer Status </th>
+          </tr>
+        </thead>
+        <tbody>
+     
+        <tr>
+            <?php 
+            while($row = mysqli_fetch_assoc($result))
+            {
+            ?>
+          <!-------  fetching users from database  ------->
+                <td><?php 
+                
+                $screen_name = "SELECT * FROM screen WHERE id= '".$row['screen_id']."'";
+                $check = mysqli_query($conn,$screen_name);
+                if($check !== FALSE){
+                    $row2 = mysqli_fetch_assoc($check);                        
+                    echo $row2['screen'];                                     
+                }else{
+                    echo "Error executing the query" . mysqli_error($conn);
+                }
+                
+
+                    
+            // select from screens where id = $row['screen_id'];
+            // $row2 = mysqli_fetch_assoc($result)
+            //echo $row2['']
+                ?></td>
+                <td><p id="my_timer" style="font-weight:bolder;">00:00:00</p></td>  
+                <td>
+                <button type="submit" id="control" name="#" class="btn btn-danger">control Time</button>
+                <script type="text/javascript" src="timer.js"></script>
+              </form>                
+              </td>
+          </tr>
+          <?php
+          }
+          ?>          
+        </tbody>
+      </table>
+
+
+    </div>
 
 
 

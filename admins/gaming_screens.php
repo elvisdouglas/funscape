@@ -43,7 +43,8 @@ $start_from = ($page-1)*8;
         <thead>
           <tr class="bg-dark text-white">
             <th> Screen </th>
-            <th>Gamer's Time </th>
+            <th>Gamer's hour </th>
+            <th>Gamer's minute </th>
             <th>Price </th>            
             <th>Date and Time </th>
             <th>Status </th>
@@ -75,7 +76,8 @@ $start_from = ($page-1)*8;
             // $row2 = mysqli_fetch_assoc($result)
             //echo $row2['']
                 ?></td>
-                <td><?php echo $row['time_limit'] ?></td>
+                <td><?php echo $row['hour'] ?></td>
+                <td><?php echo $row['minute'] ?></td>
                 <td><?php echo $row['price'] ?></td>                
                 <td><?php echo $row['date'] ?></td>
                 <td>
