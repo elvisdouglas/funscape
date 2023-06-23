@@ -7,6 +7,18 @@ $sql = sprintf("SELECT * FROM gamer");
 $result = mysqli_query($mysqli,$sql);
 
 $conn = require __DIR__ . "/conn.php";
+/////////////////////////////////////
+$num_per_page=8;
+
+if(isset($_GET["page"])){
+  $page = $_GET["page"];
+}else{
+  $page = 1;
+}
+
+$start_from = ($page-1)*8;
+    $sq = "SELECT * FROM gamer limit $start_from,$num_per_page";
+    $g_result = mysqli_query($conn,$sq);
 
 ?>
 
@@ -83,11 +95,22 @@ $conn = require __DIR__ . "/conn.php";
           </tr>
           <?php
           }
-
-          ?>  
-        
+          ?>          
         </tbody>
       </table>
+
+      <?php
+      //breaking records page
+        $sq = "SELECT * FROM gamer";
+        $g_result = mysqli_query($conn,$sq);
+        $total_records = mysqli_num_rows($g_result);
+        $total_pages = ceil($total_records/$num_per_page);
+        $i = 1;
+        for($i;$i<=$total_pages;$i++) {
+          echo "<a href='gaming_screens.php?page=".$i."'>".$i."</a>";
+
+        }
+      ?>
 
     </div>
   </div>
