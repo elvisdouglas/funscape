@@ -1,16 +1,42 @@
 <?php
+// error_reporting(0);
 include 'conn.php';
 include('includes/header.php'); 
 include('includes/navbar.php'); 
+
 
 $conn = require __DIR__ . "/conn.php";
 $mysqli = require __DIR__ . "/conn.php";
 $sql = sprintf("SELECT * FROM gamer");
 $result = mysqli_query($mysqli,$sql);
 
+// creating a timer countdown from data in the database
+$duration = "";
+
+$timer = "SELECT * FROM gamer";
+$c_timer = mysqli_query($conn,$timer);
+//while($row1=mysqli_fetch_array($c_timer)){
+//  $duration = $row1["duration"];  
+//}
+$duration = $row["duration"];
+
+$_session["duration"]=$duration;
+$_session["start_time"]=date("Y-m-d H:i:s");
+
+$end_time=date('Y-m-d H:i:s', strtotime('+'.$_session["duration"].'minutes', strtotime('+'.$_session["start_time"])));
+
+$_session["end_time"]=$end_time;
 ?>
 
+<script type="text/javascript">
+  setInterval(function(){
+    var xmlhttp = new XMLHttpRequest();
+    xmlhttp.open("GET", "response.php",false);
+    xmlhttp.send(null);
+    document.getElementById("response").innerHTML=xmlhttp.responseText;
+  },1000);
 
+</script>
 
 <!-- Begin Page Content -->
 <div class="container-fluid">
@@ -21,6 +47,7 @@ $result = mysqli_query($mysqli,$sql);
     <h1 class="h3 mb-0 text-gray-800">Dashboard</h1>
     <h1>Hello Admin, </h1>
   </div>
+  
 <br>
   <!-- Content Row -->
   <div class="row">
@@ -168,7 +195,7 @@ $result = mysqli_query($mysqli,$sql);
           </tr>
         </thead>
         <tbody>
-     
+
         <tr>
             <?php 
             while($row = mysqli_fetch_assoc($result))
@@ -192,10 +219,12 @@ $result = mysqli_query($mysqli,$sql);
             // $row2 = mysqli_fetch_assoc($result)
             //echo $row2['']
                 ?></td>
-                <td><p id="my_timer" style="font-weight:bolder;">00:00:00</p></td>  
+                <td>
+                  <?php echo $row["duration"]; ?>
+                  <p id="response" style="font-weight:bolder;"></p>                  
+                </td>  
                 <td>
                 <button type="submit" id="control" name="#" class="btn btn-danger">control Time</button>
-                <script type="text/javascript" src="timer.js"></script>
               </form>                
               </td>
           </tr>

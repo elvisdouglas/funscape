@@ -16,7 +16,7 @@ $conn = require __DIR__ . "/conn.php";
   <div class="card-header py-3">
     <h6 class="m-0 font-weight-bold text-primary">Funscape Gamer 
             <button type="button" class="btn btn-Danger" data-toggle="modal" data-target="#" disabled>
-              #_Gamer_Funscape
+                #_Gamer_Funscape
             </button>
     </h6>
   </div>
@@ -55,12 +55,22 @@ $conn = require __DIR__ . "/conn.php";
             ?>
             
             <div class="form-group col-md-6 mb-3">
-                <label>Hour</label>
-                <input type="number" name="hour" class="form-control" placeholder="Hour" required>
-            </div>
-            <div class="form-group col-md-6 mb-3">
-                <label>Minutes</label>
-                <input type="number" name="minute" class="form-control" placeholder="Minutes" required>
+                <label for="timer">Hours</label>
+                <!------<input type="number" name="hour" class="form-control" placeholder="Hour" required>------>
+                <select class="form-control" name="time" id="timer" required>
+                    <option>----Pick gaming time-----</option>
+                    <option value="30">30 Minutes</option>
+                    <option value="60">1 hour</option>
+                    <option value="90">1 hour 30 Minutes</option>
+                    <option value="120">2 hours</option>
+                    <option value="150">2 hours 30 Minutes</option>
+                    <option value="180">3 hours </option>
+                    <option value="210">3 hours 30 Minutes</option>
+                    <option value="240">4 hours </option>
+                    <option value="270">4 hours 30 Minutes</option>
+                    <option value="300">5 hours </option>
+
+                </select>
             </div>
             <div class="form-group col-md-6 mb-3">
                 <label>Price</label>
@@ -78,8 +88,9 @@ $conn = require __DIR__ . "/conn.php";
         </div> 
         <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            <button type="submit" name="gamer" class="btn btn-danger">Gaming Time</button>
+            <button type="submit" value="" name="gamer" class="btn btn-danger">Gaming Time</button>
             <script type="text/javascript" src="timer.js"></script>
+            
         </div>
         </form>
     </div>
