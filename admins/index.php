@@ -4,7 +4,6 @@ include 'conn.php';
 include('includes/header.php'); 
 include('includes/navbar.php'); 
 
-
 $conn = require __DIR__ . "/conn.php";
 $mysqli = require __DIR__ . "/conn.php";
 $sql = sprintf("SELECT * FROM gamer");
@@ -15,17 +14,18 @@ $duration = "";
 
 $timer = "SELECT * FROM gamer";
 $c_timer = mysqli_query($conn,$timer);
-//while($row1=mysqli_fetch_array($c_timer)){
-//  $duration = $row1["duration"];  
-//}
-$duration = $row["duration"];
+while($row1=mysqli_fetch_assoc($c_timer)){
+  $duration = $row1["duration"]; 
+  $_SESSION["end-time"] = $row1["duration"];
+  echo $_SESSION["end-time"];
+}
 
 $_session["duration"]=$duration;
 $_session["start_time"]=date("Y-m-d H:i:s");
 
-$end_time=date('Y-m-d H:i:s', strtotime('+'.$_session["duration"].'minutes', strtotime('+'.$_session["start_time"])));
+$end_time=date('Y-m-d H:i:s', strtotime('+'.$_session["duration"].'hours', strtotime('+'.$_session["start_time"])));
 
-$_session["end_time"]=$end_time;
+$_SESSION["end_time"]=$end_time;
 ?>
 
 <script type="text/javascript">
@@ -49,6 +49,11 @@ $_session["end_time"]=$end_time;
   </div>
   
 <br>
+<script type="text/javascript" src="count_timer.js"></script>
+
+<div class="timer-container center">
+  <div class="timer center"></div>
+</div>
   <!-- Content Row -->
   <div class="row">
 
@@ -236,8 +241,6 @@ $_session["end_time"]=$end_time;
 
 
     </div>
-
-
 
 
 

@@ -19,7 +19,7 @@ $conn = require __DIR__ . "/conn.php";
                 #_Gamer_Funscape
             </button>
     </h6>
-  </div>
+    </div>
 
     <div class="modal-body">
     <form action="game_code.php" method="post">

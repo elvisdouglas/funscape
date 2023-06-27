@@ -3,7 +3,7 @@ session_start();
 
 //$from_time1=date('Y-m-d H:i:s');
 //$to_time1=$_SESSION["duration"];
-
+//$_SESSION["end_time"] = "duration";
 if (isset($_SESSION["end_time"])) {
     $from_time1 = date('Y-m-d H:i:s');
     $to_time1 = $_SESSION["end_time"]; 
@@ -20,7 +20,7 @@ if (isset($_SESSION["end_time"])) {
 
 
 // Assuming you have set the "end_time" session variable somewhere in your code
-//$_SESSION["end_time"] = "2023-06-26 12:00:00";
+//
 
 
 
