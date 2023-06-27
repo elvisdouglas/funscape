@@ -1,9 +1,18 @@
 <?php
 include('includes/header.php'); 
+
+?>
+
+<?php
+if(isset($_SESSION['user_id'])){
+    header("location:index.php");
+}
+
 ?>
 
 <?php
 include 'conn.php';
+
 
 $is_invalid = false;
 

@@ -1,8 +1,18 @@
 <?php
+session_start();
+if(!isset($_SESSION["user_id"])){
+  header("location: login.php");
+}
+?>
+
+
+<?php
 // error_reporting(0);
 include 'conn.php';
 include('includes/header.php'); 
 include('includes/navbar.php'); 
+
+
 
 $conn = require __DIR__ . "/conn.php";
 $mysqli = require __DIR__ . "/conn.php";
@@ -21,12 +31,16 @@ while($row1=mysqli_fetch_assoc($c_timer)){
 }
 
 $_session["duration"]=$duration;
-$_session["start_time"]=date("Y-m-d H:i:s");
+$_session["start_time"]=date("H:i:s");
 
-$end_time=date('Y-m-d H:i:s', strtotime('+'.$_session["duration"].'hours', strtotime('+'.$_session["start_time"])));
+$end_time=date('H:i:s', 
+      strtotime('+'.$_session["duration"].'duration', 
+      strtotime('+'.$_session["start_time"])));
 
 $_SESSION["end_time"]=$end_time;
+
 ?>
+
 
 <script type="text/javascript">
   setInterval(function(){

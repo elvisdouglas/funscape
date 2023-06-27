@@ -5,7 +5,7 @@ session_start();
 //$to_time1=$_SESSION["duration"];
 //$_SESSION["end_time"] = "duration";
 if (isset($_SESSION["end_time"])) {
-    $from_time1 = date('Y-m-d H:i:s');
+    $from_time1 = date('H:i:s');
     $to_time1 = $_SESSION["end_time"]; 
 
     $time_first = strtotime($from_time1);
