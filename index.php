@@ -1,42 +1,210 @@
 <?php
-include "include/header.php";
+session_start();
+if(!isset($_SESSION["user_id"])){
+  header("location: login.php");
+}
 ?>
 
-<body>
-    <!--------main container------------>
-    <div class="container d-flex justify-content-center align-items-center min-vh-100">
-        <!---------login container------------------->
-        <div class="row border rounded-4 p-3 shadow box-area">
-            <!----------------left box-------------------------->
-            <div class="col-md-6 rounded-4 d-flex justify-content-center align-items-center flex-column left-box">
-                <div class="featured-image mb-3">
-                    <img src="images/km.png" class="img-fluid d-flex" />
+
+<?php
+// error_reporting(0);
+include './admins/conn.php';
+include('include/header.php'); 
+include('include/navbar.php'); 
+
+
+
+$conn = require __DIR__ . "/conn.php";
+$mysqli = require __DIR__ . "/conn.php";
+$sql = sprintf("SELECT * FROM gamer");
+$result = mysqli_query($mysqli,$sql);
+
+// creating a timer countdown from data in the database
+$duration = "";
+
+$timer = "SELECT * FROM gamer";
+$c_timer = mysqli_query($conn,$timer);
+while($row1=mysqli_fetch_assoc($c_timer)){
+  $duration = $row1["duration"]; 
+  $_SESSION["end-time"] = $row1["duration"];
+  echo $_SESSION["end-time"];
+}
+
+$_session["duration"]=$duration;
+$_session["start_time"]=date("H:i:s");
+
+$end_time=date('H:i:s', 
+      strtotime('+'.$_session["duration"].'duration', 
+      strtotime('+'.$_session["start_time"])));
+
+$_SESSION["end_time"]=$end_time;
+
+?>
+
+
+<script type="text/javascript">
+  setInterval(function(){
+    var xmlhttp = new XMLHttpRequest();
+    xmlhttp.open("GET", "response.php",false);
+    xmlhttp.send(null);
+    document.getElementById("response").innerHTML=xmlhttp.responseText;
+  },1000);
+
+</script>
+
+<!-- Begin Page Content -->
+<div class="container-fluid">
+
+
+  <!-- Page Heading -->
+  <div class="d-sm-flex align-items-center justify-content-between mb-4">
+    <h1 class="h3 mb-0 text-gray-800">Dashboard</h1>
+    <h1>Hello User, </h1>
+  </div>
+  
+<br>
+<script type="text/javascript" src="count_timer.js"></script>
+
+<div class="timer-container center">
+  <div class="timer center"></div>
+</div>
+  <!-- Content Row -->
+  <div class="row">
+
+    <!-- screens in the system Example -->
+    <div class="col-xl-3 col-md-6 mb-4">
+      <div class="card border-left-info shadow h-100 py-2">
+        <div class="card-body">
+          <div class="row no-gutters align-items-center">
+            <div class="col mr-2">
+              <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Screens Available</div>
+              <div class="row no-gutters align-items-center">
+                <div class="col-auto">
+                  <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">
+                  <?php
+                    $screen = "SELECT * FROM screen";
+                    $screen_run = mysqli_query($conn, $screen);
+                    
+                    if($screen_total = mysqli_num_rows($screen_run)){
+                      echo '<h4 class="mb-0" style="font-weight:bolder;">'.$screen_total.'</h4>';
+                    }else{
+                      echo '<h4 class="mb-0" style="font-weight:bolder;"> No Data</h4>';
+                    }
+                  ?>
+                  </div>
                 </div>
-                <p class="text-bg-danger fs-2" style="font-family: 'Courier New', sans-serif; font-weight: bolder">Welcome to Funscape</p>
-                <small class="text-bg-danger text-wrap text-center" style="width: 22rem;font-family: 'Courier New', sans-serif">Enjoy the Gaming Experience</small>
+              </div>
             </div>
-            <div class="col-md-6 right-box">
-                <div class="row align-items-center">
-                    <div class="header-text mb-4">
-                        <h1 class="tito">Hello, Again</h1>
-                        <h3 class="tito1">Welcome to Funscape </h3>
-                    </div>
-                    <div class="form-group mb-3">
-                        <label for="email" class="form-label" style="color: #fff; font-weight: bold;">Email</label>
-                        <input type="text" class="form-control form-control-lg bg-light fs-6" placeholder="Enter Access Email">
-                    </div>
-                    <div class="form-group mb-3">
-                        <label for="password" class="form-label" style="color: #fff; font-weight: bold;">password</label>
-                        <input type="password" class="form-control form-control-lg bg-light fs-6" placeholder="Enter Password">
-                    </div>
-                    <div class="input-group mb-3">
-                        <button class="btn btn-lg btn btn-outline-danger w-100 fs-6">Login</button>
-                    </div>
-                </div>
+            <div class="col-auto">
+              <i class="fas fa-film fa-4x text-black-300"></i>
             </div>
+          </div>
         </div>
+      </div>
     </div>
 
-</body>
+    <!-- Screens that are in use Card Example -->
+    <div class="col-xl-3 col-md-6 mb-4">
+      <div class="card border-left-warning shadow h-100 py-2">
+        <div class="card-body">
+          <div class="row no-gutters align-items-center">
+            <div class="col mr-2">
+              <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">Active screens</div>
+              <div class="h5 mb-0 font-weight-bold text-gray-800">
+                  <?php
+                    $game = "SELECT * FROM gamer WHERE status_g='1' ";
+                    $game_run = mysqli_query($conn, $game);
 
-</html>
+                    if($game_run !== false){
+                      $game_total = mysqli_num_rows($game_run);
+
+                      if($game_total > 0){
+                        echo '<h4 class="mb-0" style="font-weight:bolder;">'.$game_total.'</h4>';
+                      }else{
+                        echo '<h4 class="mb-0" style="font-weight:bolder;">SCREENS UNUSED</h4>';
+                      }
+
+                    }else{
+                      echo "Error executing the query: " . mysqli_error($conn);
+                    }
+                    
+                    //if($game_total = mysqli_num_rows($game_run)){
+                    //  echo '<h4 class="mb-0">'.$game_total.'</h4>';
+                    //}else{
+                    //  echo '<h4 class="mb-0"> No Data</h4>';
+                    //}
+                  ?>
+              </div>
+            </div>
+            <div class="col-auto">
+              <i class="fab fa-playstation fa-4x text-black-300"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Screens timer countdown -->
+
+  <div class="table-responsive">
+
+      <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+        <thead>
+          <tr class="bg-dark text-white">
+            <th> Screen </th>
+            <th>Time Left </th> 
+            <th>Gamer Status </th>
+          </tr>
+        </thead>
+        <tbody>
+
+        <tr>
+            <?php 
+            while($row = mysqli_fetch_assoc($result))
+            {
+            ?>
+          <!-------  fetching users from database  ------->
+                <td><?php 
+                
+                $screen_name = "SELECT * FROM screen WHERE id= '".$row['screen_id']."'";
+                $check = mysqli_query($conn,$screen_name);
+                if($check !== FALSE){
+                    $row2 = mysqli_fetch_assoc($check);                        
+                    echo $row2['screen'];                                     
+                }else{
+                    echo "Error executing the query" . mysqli_error($conn);
+                }
+                
+
+                    
+            // select from screens where id = $row['screen_id'];
+            // $row2 = mysqli_fetch_assoc($result)
+            //echo $row2['']
+                ?></td>
+                <td>
+                  <?php echo $row["duration"]; ?>
+                  <p id="response" style="font-weight:bolder;"></p>                  
+                </td>  
+                <td>
+                <button type="submit" id="control" name="#" class="btn btn-danger">control Time</button>
+              </form>                
+              </td>
+          </tr>
+          <?php
+          }
+          ?>          
+        </tbody>
+      </table>
+
+
+    </div>
+
+
+
+
+
+  <?php
+include('include/scripts.php');
+include('include/footer.php');
+?>
