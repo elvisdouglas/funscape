@@ -1,5 +1,5 @@
-   <!-- Sidebar -->
-   <ul class="navbar-nav bg-gradient-danger sidebar sidebar-dark accordion" id="accordionSidebar">
+  <!-- Sidebar -->
+  <ul class="navbar-nav bg-gradient-danger sidebar sidebar-dark accordion" id="accordionSidebar">
 
 <!-- Sidebar - Brand -->
 <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.php">
@@ -88,7 +88,7 @@
   </a>
   <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
     <div class="bg-white py-2 collapse-inner rounded">
-      <a class="collapse-item" href="forgot-password.html">Forgot Password</a>
+      <a class="collapse-item" href="forgot_password.php">Forgot Password</a>
     </div>
   </div>
 </li>
