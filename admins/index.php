@@ -26,16 +26,32 @@ $timer = "SELECT * FROM gamer";
 $c_timer = mysqli_query($conn,$timer);
 while($row1=mysqli_fetch_assoc($c_timer)){
   $duration = $row1["duration"]; 
+  $date = $row1["date"];
   $_SESSION["end-time"] = $row1["duration"];
-  echo $_SESSION["end-time"];
+  $_SESSION["date_t"] = $row1["date"];
+  //echo $_SESSION["end-time"];
+  //echo $date;
 }
 
-$_session["duration"]=$duration;
+
+//echo $duration;
+
+
+$adding= strtotime("17:26:11 + $duration minute");
+
+  echo date('H:i:s', $adding);
+
+$maxAge = 40;
+ date('Y-m-d', strtotime("-$maxAge days"));
+
+
+
+$_session["end_time"]=$duration;
 $_session["start_time"]=date("H:i:s");
 
 $end_time=date('H:i:s', 
-      strtotime('+'.$_session["duration"].'duration', 
-      strtotime('+'.$_session["start_time"])));
+    strtotime('+'.$_session["end_time"].'duration', 
+    strtotime('+'.$_session["start_time"])));
 
 $_SESSION["end_time"]=$end_time;
 
