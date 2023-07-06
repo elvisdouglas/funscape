@@ -6,12 +6,14 @@ session_start();
 //$_SESSION["end_time"] = "duration";
 if (isset($_SESSION["end_time"])) {
     $from_time1 = date('H:i:s');
-    $to_time1 = $_SESSION["end_time"]; 
+    $to_times = $_SESSION["date_t"];
+    $to_time1 = $_SESSION["end_time"];  
 
     $time_first = strtotime($from_time1);
     $time_second = strtotime($to_time1);
+    $time_db = strtotime($to_times);
 
-    $difference_in_seconds = $time_second - $time_first;
+    $difference_in_seconds = $time_db - $time_first;
 
     echo gmdate("H:i:s", $difference_in_seconds);
 } else {
