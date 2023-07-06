@@ -1,5 +1,5 @@
 <?php 
-//session_start();
+session_start();
 
 ?>
 <?php
@@ -25,6 +25,7 @@ $conn = require __DIR__ . "/conn.php";
             
     <form action="change_p.php" method="post">
         <div class="row">
+        <input type="hidden" name="user_id" id="user_id" value="">
             <div class="col-md-6 mb-3">
                 <label for="">Email</label>
                 <input type="text" name="email" id="user_email"  class="form-control" required>
