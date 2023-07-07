@@ -1,5 +1,6 @@
 <?php
 session_start();
+
 if(!isset($_SESSION["user_id"])){
   header("location: login.php");
 }
@@ -38,13 +39,7 @@ while($row1=mysqli_fetch_assoc($c_timer)){
 
 
 $adding= strtotime("17:26:11 + $duration minute");
-
   echo date('H:i:s', $adding);
-
-$maxAge = 40;
- date('Y-m-d', strtotime("-$maxAge days"));
-
-
 
 $_session["end_time"]=$duration;
 $_session["start_time"]=date("H:i:s");

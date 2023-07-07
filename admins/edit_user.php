@@ -18,7 +18,7 @@ $conn = require __DIR__ . "/conn.php";
   </div>
 
 <div class="card-body">
-
+ 
 <?php
 if(isset($_GET['id'])){
     $user_id = $_GET['id'];

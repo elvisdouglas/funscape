@@ -22,7 +22,7 @@ $conn = require __DIR__ . "/conn.php";
     </div>
 
     <div class="modal-body">
-    <form action="game_code.php" method="post">
+    <form action="game_code.php" method="post"> 
 
         <div class="row">
             <?php
