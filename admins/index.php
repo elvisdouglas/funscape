@@ -30,7 +30,7 @@ while($row1=mysqli_fetch_assoc($c_timer)){
   $date = $row1["date"];
   $_SESSION["end-time"] = $row1["duration"];
   $_SESSION["date_t"] = $row1["date"];
-  //echo $_SESSION["end-time"];
+  echo $_SESSION["end-time"];
   //echo $date;
 }
 
@@ -250,8 +250,34 @@ $_SESSION["end_time"]=$end_time;
             //echo $row2['']
                 ?></td>
                 <td>
-                  <?php echo $row["duration"]; ?>
-                  <p id="response" style="font-weight:bolder;"></p>                  
+                  <?php echo $row["duration"]; ?> </br>
+<?php
+$to_time1= $row["duration"];
+//echo $to_time1;
+//$_SESSION["end_time"] = strtotime(' 5 minute');
+$currentTimestamp = time();
+$end_Time = strtotime("+ $to_time1 minute");
+ 
+
+if($end_Time !== false){
+    $remaining_time = $end_Time - $currentTimestamp;
+
+    if($remaining_time > 0){
+        $hours = floor($remaining_time / 3600);
+        $minutes = floor(($remaining_time % 3600) / 60);
+        $seconds = $remaining_time % 60;
+        
+        echo "Time remaining: $hours hours, $minutes minutes, $seconds seconds";
+    }else{
+        echo "Countdown expired";
+    }
+}else{
+    echo "Invalid duration Format";
+}
+
+
+?>
+                  <!-- <p id="response" style="font-weight:bolder;"></p>                   -->
                 </td>  
                 <td>
                 <button type="submit" id="control" name="#" class="btn btn-danger">control Time</button>
