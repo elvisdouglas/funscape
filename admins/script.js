@@ -3,7 +3,7 @@ const timer = document.querySelector('.timer');
 // input
 const hr = 0;
 const min = 0;
-const sec = 10;
+const sec = 15;
 
 const hours = hr * 3600000;
 const minutes = min * 60000;
