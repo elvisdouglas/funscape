@@ -39,13 +39,13 @@ html{
     transform-origin: right center;
 }
 .semicircle:nth-child(1){
-    background-color: red;
+    /* background-color: red; */
     background-color: #088b8b;
     z-index: 2;
     
 }
 .semicircle:nth-child(2){
-    background-color: blue;
+    /* background-color: blue; */
     background-color: #088b8b;
     z-index: 3;
 }
