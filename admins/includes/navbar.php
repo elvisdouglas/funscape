@@ -48,9 +48,9 @@
 
 
 <li class="nav-item">
-  <a class="nav-link" href="admins.php">
+  <a class="nav-link" href="progress.php">
     <i class="fas fa-fw fa-chart-area"></i>
-    <span>Admin setup</span></a>
+    <span>Active screens</span></a>
 </li>
 
 
