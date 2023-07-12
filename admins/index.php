@@ -30,7 +30,7 @@ while($row1=mysqli_fetch_assoc($c_timer)){
   $date = $row1["date"];
   $_SESSION["end-time"] = $row1["duration"];
   $_SESSION["date_t"] = $row1["date"];
-  echo $_SESSION["end-time"];
+  //echo $_SESSION["end-time"];
   //echo $date;
 }
 
@@ -38,30 +38,30 @@ while($row1=mysqli_fetch_assoc($c_timer)){
 //echo $duration;
 
 
-$adding= strtotime("17:26:11 + $duration minute");
-  echo date('H:i:s', $adding);
+// $adding= strtotime("17:26:11 + $duration minute");
+//   echo date('H:i:s', $adding);
 
-$_session["end_time"]=$duration;
-$_session["start_time"]=date("H:i:s");
+// $_session["end_time"]=$duration;
+// $_session["start_time"]=date("H:i:s");
 
-$end_time=date('H:i:s', 
-    strtotime('+'.$_session["end_time"].'duration', 
-    strtotime('+'.$_session["start_time"])));
+// $end_time=date('H:i:s', 
+//     strtotime('+'.$_session["end_time"].'duration', 
+//     strtotime('+'.$_session["start_time"])));
 
-$_SESSION["end_time"]=$end_time;
+// $_SESSION["end_time"]=$end_time;
 
 ?>
 
-
+<!-- 
 <script type="text/javascript">
   setInterval(function(){
     var xmlhttp = new XMLHttpRequest();
-    xmlhttp.open("GET", "response.php",false);
+    xmlhttp.open("GET", "progress.php",false);
     xmlhttp.send(null);
     document.getElementById("response").innerHTML=xmlhttp.responseText;
   },1000);
 
-</script>
+</script> -->
 
 <!-- Begin Page Content -->
 <div class="container-fluid">
@@ -74,7 +74,7 @@ $_SESSION["end_time"]=$end_time;
   </div>
   
 <br>
-<script type="text/javascript" src="count_timer.js"></script>
+<!-- <script type="text/javascript" src="count_timer.js"></script> -->
 
 <div class="timer-container center">
   <div class="timer center"></div>
@@ -249,34 +249,41 @@ $_SESSION["end_time"]=$end_time;
             // $row2 = mysqli_fetch_assoc($result)
             //echo $row2['']
                 ?></td>
-                <td>
-                  <?php echo $row["duration"]; ?> </br>
+                <td id="duration">
+                  <!-- <?php echo $row["duration"]; ?> </br> -->
 <?php
 $to_time1= $row["duration"];
-//echo $to_time1;
-//$_SESSION["end_time"] = strtotime(' 5 minute');
-$currentTimestamp = time();
-$end_Time = strtotime("+ $to_time1 minute");
- 
+echo htmlspecialchars($to_time1);
+// echo $to_time1;
+// $_SESSION["end_time"] = strtotime(' 5 minute');
+// $currentTimestamp = time();
+// $end_Time = strtotime("+ $to_time1 minute");
 
-if($end_Time !== false){
-    $remaining_time = $end_Time - $currentTimestamp;
+// if($end_Time !== false){
+//     $remaining_time = $end_Time - $currentTimestamp;
 
-    if($remaining_time > 0){
-        $hours = floor($remaining_time / 3600);
-        $minutes = floor(($remaining_time % 3600) / 60);
-        $seconds = $remaining_time % 60;
+//     if($remaining_time > 0){
+//         $hours = floor($remaining_time / 3600);
+//         $minutes = floor(($remaining_time % 3600) / 60);
+//         $seconds = $remaining_time % 60;
         
-        echo "Time remaining: $hours hours, $minutes minutes, $seconds seconds";
-    }else{
-        echo "Countdown expired";
-    }
-}else{
-    echo "Invalid duration Format";
-}
-
-
+//         echo "Time remaining: $hours hours, $minutes minutes, $seconds seconds";
+//     }else{
+//         echo "Countdown expired";
+//     }
+// }else{
+//     echo "Invalid duration Format";
+// }
 ?>
+
+<script>
+  // var c_t = document.getElementById("duration").value;
+  
+</script>
+
+
+
+
                   <!-- <p id="response" style="font-weight:bolder;"></p>                   -->
                 </td>  
                 <td>
@@ -293,7 +300,7 @@ if($end_Time !== false){
 
     </div>
 
-
+<!-- <script src="script.js"></script> -->
 
 
 
