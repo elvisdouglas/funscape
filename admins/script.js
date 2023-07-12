@@ -1,5 +1,8 @@
 const semicircles = document.querySelectorAll('.semicircle');
 const timer = document.querySelector('.timer');
+// const screen = document.querySelector('.screen');
+// var duration = document.getElementById('c_t').value;
+
 // input
 const hr = 0;
 const min = 0;
@@ -43,6 +46,11 @@ function countDownTimer(){
     <div class="colon">:</div>
     <div>${secs}</div>
     `;
+
+    // screen name
+    // screen.innerHTML = `
+    // <div></div>
+    // `;
 
     // 5sec-condition
     if(remainingTime <= 6000){
