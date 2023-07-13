@@ -76,9 +76,6 @@ while($row1=mysqli_fetch_assoc($c_timer)){
 <br>
 <!-- <script type="text/javascript" src="count_timer.js"></script> -->
 
-<div class="timer-container center">
-  <div class="timer center"></div>
-</div>
   <!-- Content Row -->
   <div class="row">
 
@@ -225,7 +222,7 @@ while($row1=mysqli_fetch_assoc($c_timer)){
           </tr>
         </thead>
         <tbody>
-
+<!-- screens names -->
         <tr>
             <?php 
             while($row = mysqli_fetch_assoc($result))
@@ -248,37 +245,61 @@ while($row1=mysqli_fetch_assoc($c_timer)){
             // select from screens where id = $row['screen_id'];
             // $row2 = mysqli_fetch_assoc($result)
             //echo $row2['']
-                ?></td>
-                <td id="duration">
+                ?>
+                </td>
+
+
+                <td >
+
+                <div class="timer-container center">
+                  <div class="timer center" id="tim" style="display: flex;"></div>
+                </div>
                   <!-- <?php echo $row["duration"]; ?> </br> -->
 <?php
 $to_time1= $row["duration"];
-echo htmlspecialchars($to_time1);
-// echo $to_time1;
-// $_SESSION["end_time"] = strtotime(' 5 minute');
-// $currentTimestamp = time();
-// $end_Time = strtotime("+ $to_time1 minute");
+// echo htmlspecialchars($to_time1);
 
-// if($end_Time !== false){
-//     $remaining_time = $end_Time - $currentTimestamp;
-
-//     if($remaining_time > 0){
-//         $hours = floor($remaining_time / 3600);
-//         $minutes = floor(($remaining_time % 3600) / 60);
-//         $seconds = $remaining_time % 60;
-        
-//         echo "Time remaining: $hours hours, $minutes minutes, $seconds seconds";
-//     }else{
-//         echo "Countdown expired";
-//     }
-// }else{
-//     echo "Invalid duration Format";
-// }
 ?>
 
 <script>
-  // var c_t = document.getElementById("duration").value;
+  var c_t = <?php echo json_encode($to_time1) ?>;
   
+  // input
+const hr = 0;
+const min = c_t;
+const sec = 0;
+
+const hours = hr * 3600000;
+const minutes = min * 60000;
+const seconds = sec * 1000;
+const setTime = hours + minutes + seconds;
+const startTime = Date.now();
+const futureTime = startTime + setTime;
+
+const timerLoop = setInterval(countDownTimer);
+countDownTimer();
+
+function countDownTimer(){
+    const currentTime = Date.now();
+    const remainingTime = futureTime - currentTime;
+    const angle = (remainingTime / setTime) * 360;
+    // timer
+    const hrs = Math.floor((remainingTime / (1000 * 60 * 60)) % 24).toLocaleString('en-US', {minimumIntegerDigits: 2, useGrouping:false});
+    const mins = Math.floor((remainingTime / (1000 * 60)) % 60).toLocaleString('en-US', {minimumIntegerDigits: 2, useGrouping:false});
+    const secs = Math.floor((remainingTime / 1000) % 60).toLocaleString('en-US', {minimumIntegerDigits: 2, useGrouping:false});
+
+    document.getElementById('tim').innerHTML = `<div>${hrs}</div> <div class="colon">:</div> <div>${mins}</div> <div class="colon">:</div> <div>${secs}</div>`;
+
+    if(remainingTime < 0){
+        clearInterval(timerLoop);
+
+    document.getElementById('tim').innerHTML = `<div>00</div> <div class="colon">:</div> <div>00</div> <div class="colon">:</div> <div>00</div>`;
+
+    // timer.style.color = "lightgrey";
+    }
+
+
+}
 </script>
 
 
@@ -303,6 +324,28 @@ echo htmlspecialchars($to_time1);
 <!-- <script src="script.js"></script> -->
 
 
+<?php
+// echo $to_time1;
+// $_SESSION["end_time"] = strtotime(' 5 minute');
+// $currentTimestamp = time();
+// $end_Time = strtotime("+ $to_time1 minute");
+
+// if($end_Time !== false){
+//     $remaining_time = $end_Time - $currentTimestamp;
+
+//     if($remaining_time > 0){
+//         $hours = floor($remaining_time / 3600);
+//         $minutes = floor(($remaining_time % 3600) / 60);
+//         $seconds = $remaining_time % 60;
+        
+//         echo "Time remaining: $hours hours, $minutes minutes, $seconds seconds";
+//     }else{
+//         echo "Countdown expired";
+//     }
+// }else{
+//     echo "Invalid duration Format";
+// }
+?>
 
   <?php
 include('includes/scripts.php');
