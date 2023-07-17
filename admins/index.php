@@ -21,17 +21,20 @@ $sql = sprintf("SELECT * FROM gamer");
 $result = mysqli_query($mysqli,$sql);
 
 // creating a timer countdown from data in the database
-$duration = "";
+// $duration = "";
 
 $timer = "SELECT * FROM gamer";
 $c_timer = mysqli_query($conn,$timer);
 while($row1=mysqli_fetch_assoc($c_timer)){
+  $id = $row1['id'];
   $duration = $row1["duration"]; 
   $date = $row1["date"];
   $_SESSION["end-time"] = $row1["duration"];
   $_SESSION["date_t"] = $row1["date"];
   //echo $_SESSION["end-time"];
-  //echo $date;
+  $date = strtotime($row1["date"]);
+  $t = date("h:i:s", $date);
+  // echo $id;
 }
 
 
@@ -223,11 +226,12 @@ while($row1=mysqli_fetch_assoc($c_timer)){
         </thead>
         <tbody>
 <!-- screens names -->
-        <tr>
+        
             <?php 
             while($row = mysqli_fetch_assoc($result))
             {
             ?>
+            <tr>
           <!-------  fetching users from database  ------->
                 <td><?php 
                 
@@ -245,28 +249,32 @@ while($row1=mysqli_fetch_assoc($c_timer)){
             // select from screens where id = $row['screen_id'];
             // $row2 = mysqli_fetch_assoc($result)
             //echo $row2['']
+
+            // echo "<div class='timer'></div>";
                 ?>
                 </td>
+                <td>
 
-
-                <td >
-
-                <div class="timer-container center">
-                  <div class="timer center" id="tim" style="display: flex;"></div>
-                </div>
+                  
                   <!-- <?php echo $row["duration"]; ?> </br> -->
 <?php
+$date = strtotime($row["date"]);
+$t = date("h:i:s", $date);
 $to_time1= $row["duration"];
-// echo htmlspecialchars($to_time1);
+//echo htmlspecialchars($to_time1);
+echo $to_time1;
+
 
 ?>
 
 <script>
-  var c_t = <?php echo json_encode($to_time1) ?>;
-  
-  // input
+const timer = document.getElementById('.timer');
+var c_t = <?php echo json_encode($to_time1) ?>;
+var t_s = <?php echo json_encode($t) ?>;
+// console.log(t_s);
+// input
 const hr = 0;
-const min = c_t;
+const min = c_t; // starting time in the database
 const sec = 0;
 
 const hours = hr * 3600000;
@@ -276,36 +284,61 @@ const setTime = hours + minutes + seconds;
 const startTime = Date.now();
 const futureTime = startTime + setTime;
 
+// console.log(startTime);
+
 const timerLoop = setInterval(countDownTimer);
 countDownTimer();
 
-function countDownTimer(){
+function countDownTimer() {
     const currentTime = Date.now();
     const remainingTime = futureTime - currentTime;
-    const angle = (remainingTime / setTime) * 360;
-    // timer
-    const hrs = Math.floor((remainingTime / (1000 * 60 * 60)) % 24).toLocaleString('en-US', {minimumIntegerDigits: 2, useGrouping:false});
-    const mins = Math.floor((remainingTime / (1000 * 60)) % 60).toLocaleString('en-US', {minimumIntegerDigits: 2, useGrouping:false});
-    const secs = Math.floor((remainingTime / 1000) % 60).toLocaleString('en-US', {minimumIntegerDigits: 2, useGrouping:false});
 
-    document.getElementById('tim').innerHTML = `<div>${hrs}</div> <div class="colon">:</div> <div>${mins}</div> <div class="colon">:</div> <div>${secs}</div>`;
+    const hrs = Math.floor((remainingTime / (1000 * 60 * 60)) % 24).toLocaleString('en-US', { minimumIntegerDigits: 2, useGrouping: false });
+    const mins = Math.floor((remainingTime / (1000 * 60)) % 60).toLocaleString('en-US', { minimumIntegerDigits: 2, useGrouping: false });
+    const secs = Math.floor((remainingTime / 1000) % 60).toLocaleString('en-US', { minimumIntegerDigits: 2, useGrouping: false });
 
-    if(remainingTime < 0){
+    const formattedTime = `${hrs}:${mins}:${secs}`;
+
+    // timer.textContent = formattedTime;
+
+      document.querySelector('#tim').textContent = formattedTime;
+    
+    // document.querySelector('#tim').textContent = formattedTime;
+    // `
+    // <div>${hrs}</div> 
+    // <div class="colon">:</div> 
+    // <div>${mins}</div> 
+    // <div class="colon">:</div> 
+    // <div>${secs}</div>`;
+
+
+
+    if (remainingTime < 0) {
         clearInterval(timerLoop);
 
-    document.getElementById('tim').innerHTML = `<div>00</div> <div class="colon">:</div> <div>00</div> <div class="colon">:</div> <div>00</div>`;
+        // timer.textContent = "00:00:00";
 
-    // timer.style.color = "lightgrey";
+        document.querySelector('#tim').textContent = "00:00:00"; 
+        // `
+        // <div>00</div>
+        // <div class="colon">:</div> 
+        // <div>00</div> 
+        // <div class="colon">:</div> 
+        // <div>00</div>`;
+
+        // timer.style.color = "lightgrey";
     }
 
-
 }
+
 </script>
 
 
 
 
                   <!-- <p id="response" style="font-weight:bolder;"></p>                   -->
+                  <div class="timer center" id="tim" style="display: flex; font-size: 24px; font-weight:bold; margin:5px;"></div>
+                    
                 </td>  
                 <td>
                 <button type="submit" id="control" name="#" class="btn btn-danger">control Time</button>
