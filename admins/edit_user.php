@@ -21,7 +21,7 @@ $conn = require __DIR__ . "/conn.php";
  
 <?php
 if(isset($_GET['id'])){
-    $user_id = $_GET['id'];
+    $user_id = $_GET['id']; 
     $user = "SELECT * FROM user WHERE id='$user_id' ";
     $user_run = mysqli_query($conn, $user);
 
