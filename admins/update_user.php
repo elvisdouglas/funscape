@@ -17,7 +17,7 @@ if(isset($_POST['update_user'])){
         echo("User Updated successfully"); 
         header("refresh:2;url=users.php");
         exit(0);
-    }
+    } 
 }
 
 
