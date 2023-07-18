@@ -1,54 +1,39 @@
-<?php 
-session_start();
-
-?>
 <?php
+session_start();
 
 $conn = require __DIR__ . "/conn.php";
 
-if(isset($_POST['submit'])){
-    $user_id = $_POST['user_id'];
-    $email = $_POST['email'];
+if (isset($_POST['submit'])) {
+    $user_id = $_POST['id'];
     $op = $_POST['password'];
-    $n_p = $_POST['n_p'];
-    $c_p = $_POST['c_p'];
+    $n_p = password_hash($_POST['n_p'], PASSWORD_DEFAULT);
 
-    if($n_p !== $c_p){
-        echo "the new passwords do not match";
-        header("refresh:2;url=forgot_password.php");
-    }
-    
-    $sql = "SELECT password_hash FROM register WHERE password_hash = '$op'";
+
+    // Check if the provided current password matches the one stored in the database
+    $sql = "SELECT password_hash FROM register WHERE id='$user_id'";
     $result = mysqli_query($conn, $sql);
-    
-    if(mysqli_num_rows($result) == 1){
-        $sql2 = "UPDATE register SET password_harsh = '$n_p' WHERE id = '$user_id'";
+    if (!$result) {
+        die('Query execution failed: ' . mysqli_error($conn));
+    }
+
+    // password_hash($_POST["password"], PASSWORD_DEFAULT);
+
+    if (mysqli_num_rows($result) === 1) {
+        // Update the password in the database
+        $sql2 = "UPDATE register SET password_hash = '$n_p' WHERE id='$user_id'";
         $result2 = mysqli_query($conn, $sql2);
+        if (!$result2) {
+            die('Query execution failed: ' . mysqli_error($conn));
+        }
+
         echo "Password changed successfully";
         header("refresh:2;url=forgot_password.php");
         exit();
-    }else{
-        echo "incorrect password";
+    } else {
+        echo "Incorrect user ID";
         header("refresh:2;url=forgot_password.php");
         exit();
     }
-
 }
-
-
-
-
-//$num = mysqli_fetch_array($sql);
-
-//if($num > 0){
-    //$con = mysqli_query($conn, "UPDATE register set password_hash = '$n_p' WHERE email = '$email'");
-    //echo ("password updated");
-    //header("refresh:2;url=forgot_password.php");
-    //}else{
-    //echo ("password not updated");
-    //    header("refresh:2;url=admins.php");
-//}
-
-
 ?>
 
