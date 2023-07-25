@@ -259,100 +259,103 @@ while($row1=mysqli_fetch_assoc($c_timer)){
                   <!-- <?php echo $row["duration"]; ?> </br> -->
 <?php
 $date = strtotime($row["date"]);
-$t = date("h:i:s", $date);
+// $t = date("h:i:s", $date);
+//echo $t;
+$d_id = $row["id"];
+// echo $d_id;
 
 $to_time1= $row["duration"];
 // echo htmlspecialchars($t);
 echo $to_time1;
 ?>
 
+<div data-duration="<?=$row["duration"];?>" class="timer center" id="tim" style="display: flex; font-size: 24px; font-weight:bold; margin:5px;"></div>
+
 <script>
+  
+//   // Defines identifiers for accessing HTML elements
+//       const startButton = document.getElementById("startButton")
+//       const pauseButton = document.getElementById("pauseButton")
+//       const unpauseButton = document.getElementById("unpauseButton")
+
+// // event listeners for the button
+//       startButton.addEventListener('click', start);
+//       pauseButton.addEventListener('click', pauseTimer);
+//       unpauseButton.addEventListener('click', runTimer);
+
+//       //Disables buttons that are not needed yet
+//     disable(pauseButton);
+//     disable(unpauseButton);
 
 
-// const timer = document.getElementById('.timer');
-var c_t = <?php echo json_encode($to_time1) ?>;
-var x = Number(c_t);
-var t_s = <?php echo json_encode($t) ?>;
-// console.log(c_t);
-var now = new Date();
-now.setMinutes(now.getMinutes() + x); // timestamp
-setTime = new Date(now); // Date object
-// console.log(setTime);
 
-// var c = new Date(); // Create a new date object representing the current date and time
-// var minutes = c.getMinutes(); // Get the minutes from the date object
+document.querySelectorAll("#tim").forEach(function(demo){
 
-// console.log(minutes); // Print the minutes to the console
+  var button = document.getElementById("start");
 
-// // input
-// const hr = 0;
-// const min = c; // starting time in the database
-// const sec = 0;
+  var duration = demo.getAttribute('data-duration');
+  var dbTime = new Date(<?php echo strtotime($row["date"]); ?> * 1000);
+  
+  // var c_t = <?php echo $to_time1 ?>;
+  var x = Number(duration);
+  
+  // var t_s = <?php echo json_encode($t) ?>;
+  // var now = new Date();
+  // now.setMinutes(now.getMinutes() + x); // timestamp
 
-// // const hours = hr * 3600000;
-// // const minutes = min * 60000;
-// // const seconds = sec * 1000;
-// // const setTime = hours + minutes + seconds;
-// const setTime = c_t;
-// console.log(setTime);
-// const startTime = Date.now();
-const futureTime = setTime;
+  var setTime = (dbTime.getMinutes() + x); // Date object
 
-// console.log(futureTime);
 
-const timerLoop = setInterval(countDownTimer);
-countDownTimer();
 
-function countDownTimer() {
+  // future time => setTime = deadline
+  const futureTime = setTime;
+  
+  var timerLoop;
+
+  button.addEventListener("click", function(){
+
+    clearInterval(timerLoop);
+
+    timerLoop = setInterval(function countDownTimer() {
+
     const currentTime = Date.now();
-    const remainingTime = futureTime - currentTime;
-
+    const remainingTime = futureTime - currentTime;  
+      
     const hrs = Math.floor((remainingTime / (1000 * 60 * 60)) % 24).toLocaleString('en-US', { minimumIntegerDigits: 2, useGrouping: false });
     const mins = Math.floor((remainingTime / (1000 * 60)) % 60).toLocaleString('en-US', { minimumIntegerDigits: 2, useGrouping: false });
     const secs = Math.floor((remainingTime / 1000) % 60).toLocaleString('en-US', { minimumIntegerDigits: 2, useGrouping: false });
 
     const formattedTime = `${hrs}:${mins}:${secs}`;
+    console.log(formattedTime);
 
     // timer.textContent = formattedTime;
 
-    var allTimers = document.body.querySelectorAll('.timer');
+    // var allTimers = document.body.querySelectorAll('.timer');
 
-      document.querySelector('.timer').textContent = formattedTime;
-    
-    // document.querySelector('#tim').textContent = formattedTime;
-    // `
-    // <div>${hrs}</div> 
-    // <div class="colon">:</div> 
-    // <div>${mins}</div> 
-    // <div class="colon">:</div> 
-    // <div>${secs}</div>`;
-
-
+      demo.textContent = formattedTime;
 
     if (remainingTime < 0) {
         clearInterval(timerLoop);
-
         // timer.textContent = "00:00:00";
-
-        document.querySelector('.timer').textContent = "00:00:00"; 
-        // `
-        // <div>00</div>
-        // <div class="colon">:</div> 
-        // <div>00</div> 
-        // <div class="colon">:</div> 
-        // <div>00</div>`;
-
+        demo.textContent = "00:00:00";         
         // timer.style.color = "lightgrey";
     }
 
-}
+}, 1000);
+});
+  
+  // countDownTimer();
 
+  
+})
 </script>
-                  <!-- <p id="response" style="font-weight:bolder;"></p>                   -->
-                  <div data-duration="<?php echo $row["duration"]; ?>" class="timer center" id="tim" style="display: flex; font-size: 24px; font-weight:bold; margin:5px;"></div>
-                    
+                  <!-- <p id="response" style="font-weight:bolder;"></p>                   -->                    
                 </td>  
                 <td>
+                <button id="start" class="btn btn-danger">Start</button>
+                <button id="pauseButton" class="btn btn-success">Pause</button>
+                <button id="unpauseButton" class="btn btn-info">Continue</button>
+
                 <button type="submit" id="control" name="#" class="btn btn-danger">control Time</button>
               </form>                
               </td>
