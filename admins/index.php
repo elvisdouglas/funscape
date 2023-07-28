@@ -1,7 +1,7 @@
 <?php
 session_start();
 
-if(!isset($_SESSION["user_id"])){
+if (!isset($_SESSION["user_id"])) {
   header("location: login.php");
 }
 ?>
@@ -10,24 +10,24 @@ if(!isset($_SESSION["user_id"])){
 <?php
 // error_reporting(0);
 include 'conn.php';
-include('includes/header.php'); 
-include('includes/navbar.php'); 
+include('includes/header.php');
+include('includes/navbar.php');
 
 
 
 $conn = require __DIR__ . "/conn.php";
 $mysqli = require __DIR__ . "/conn.php";
 $sql = sprintf("SELECT * FROM gamer");
-$result = mysqli_query($mysqli,$sql);
+$result = mysqli_query($mysqli, $sql);
 
 // creating a timer countdown from data in the database
 // $duration = "";
 
 $timer = "SELECT * FROM gamer";
-$c_timer = mysqli_query($conn,$timer);
-while($row1=mysqli_fetch_assoc($c_timer)){
+$c_timer = mysqli_query($conn, $timer);
+while ($row1 = mysqli_fetch_assoc($c_timer)) {
   $id = $row1['id'];
-  $duration = $row1["duration"]; 
+  $duration = $row1["duration"];
   $date = $row1["date"];
   $_SESSION["end-time"] = $row1["duration"];
   $_SESSION["date_t"] = $row1["date"];
@@ -75,9 +75,9 @@ while($row1=mysqli_fetch_assoc($c_timer)){
     <h1 class="h3 mb-0 text-gray-800">Dashboard</h1>
     <h1>Hello Admin, </h1>
   </div>
-  
-<br>
-<!-- <script type="text/javascript" src="count_timer.js"></script> -->
+
+  <br>
+  <!-- <script type="text/javascript" src="count_timer.js"></script> -->
 
   <!-- Content Row -->
   <div class="row">
@@ -90,16 +90,16 @@ while($row1=mysqli_fetch_assoc($c_timer)){
             <div class="col mr-2">
               <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Registered Admins</div>
               <div class="h5 mb-0 font-weight-bold text-gray-800">
-              <?php
+                <?php
                 $admins = "SELECT * FROM register";
                 $admins_run = mysqli_query($conn, $admins);
-                
-                if($admin_total = mysqli_num_rows($admins_run)){
-                  echo '<h4 class="mb-0" style="font-weight:bolder;">'.$admin_total.'</h4>';
-                }else{
+
+                if ($admin_total = mysqli_num_rows($admins_run)) {
+                  echo '<h4 class="mb-0" style="font-weight:bolder;">' . $admin_total . '</h4>';
+                } else {
                   echo '<h4 class="mb-0" style="font-weight:bolder;"> No Data</h4>';
                 }
-              ?>
+                ?>
               </div>
             </div>
             <div class="col-auto">
@@ -118,16 +118,16 @@ while($row1=mysqli_fetch_assoc($c_timer)){
             <div class="col mr-2">
               <div class="text-xs font-weight-bold text-success text-uppercase mb-1">Registered Users</div>
               <div class="h5 mb-0 font-weight-bold text-gray-800">
-              <?php
+                <?php
                 $user = "SELECT * FROM user";
                 $user_run = mysqli_query($conn, $user);
-                
-                if($user_total = mysqli_num_rows($user_run)){
-                  echo '<h4 class="mb-0" style="font-weight:bolder;">'.$user_total.'</h4>';
-                }else{
+
+                if ($user_total = mysqli_num_rows($user_run)) {
+                  echo '<h4 class="mb-0" style="font-weight:bolder;">' . $user_total . '</h4>';
+                } else {
                   echo '<h4 class="mb-0" style="font-weight:bolder;"> No Data</h4>';
                 }
-              ?>
+                ?>
               </div>
             </div>
             <div class="col-auto">
@@ -148,16 +148,16 @@ while($row1=mysqli_fetch_assoc($c_timer)){
               <div class="row no-gutters align-items-center">
                 <div class="col-auto">
                   <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">
-                  <?php
+                    <?php
                     $screen = "SELECT * FROM screen";
                     $screen_run = mysqli_query($conn, $screen);
-                    
-                    if($screen_total = mysqli_num_rows($screen_run)){
-                      echo '<h4 class="mb-0" style="font-weight:bolder;">'.$screen_total.'</h4>';
-                    }else{
+
+                    if ($screen_total = mysqli_num_rows($screen_run)) {
+                      echo '<h4 class="mb-0" style="font-weight:bolder;">' . $screen_total . '</h4>';
+                    } else {
                       echo '<h4 class="mb-0" style="font-weight:bolder;"> No Data</h4>';
                     }
-                  ?>
+                    ?>
                   </div>
                 </div>
               </div>
@@ -178,29 +178,28 @@ while($row1=mysqli_fetch_assoc($c_timer)){
             <div class="col mr-2">
               <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">Active screens</div>
               <div class="h5 mb-0 font-weight-bold text-gray-800">
-                  <?php
-                    $game = "SELECT * FROM gamer WHERE status_g='1' ";
-                    $game_run = mysqli_query($conn, $game);
+                <?php
+                $game = "SELECT * FROM gamer WHERE status_g='1' ";
+                $game_run = mysqli_query($conn, $game);
 
-                    if($game_run !== false){
-                      $game_total = mysqli_num_rows($game_run);
+                if ($game_run !== false) {
+                  $game_total = mysqli_num_rows($game_run);
 
-                      if($game_total > 0){
-                        echo '<h4 class="mb-0" style="font-weight:bolder;">'.$game_total.'</h4>';
-                      }else{
-                        echo '<h4 class="mb-0" style="font-weight:bolder;">SCREENS UNUSED</h4>';
-                      }
+                  if ($game_total > 0) {
+                    echo '<h4 class="mb-0" style="font-weight:bolder;">' . $game_total . '</h4>';
+                  } else {
+                    echo '<h4 class="mb-0" style="font-weight:bolder;">SCREENS UNUSED</h4>';
+                  }
+                } else {
+                  echo "Error executing the query: " . mysqli_error($conn);
+                }
 
-                    }else{
-                      echo "Error executing the query: " . mysqli_error($conn);
-                    }
-                    
-                    //if($game_total = mysqli_num_rows($game_run)){
-                    //  echo '<h4 class="mb-0">'.$game_total.'</h4>';
-                    //}else{
-                    //  echo '<h4 class="mb-0"> No Data</h4>';
-                    //}
-                  ?>
+                //if($game_total = mysqli_num_rows($game_run)){
+                //  echo '<h4 class="mb-0">'.$game_total.'</h4>';
+                //}else{
+                //  echo '<h4 class="mb-0"> No Data</h4>';
+                //}
+                ?>
               </div>
             </div>
             <div class="col-auto">
@@ -216,186 +215,287 @@ while($row1=mysqli_fetch_assoc($c_timer)){
 
   <div class="table-responsive">
 
-      <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-        <thead>
-          <tr class="bg-dark text-white">
-            <th> Screen </th>
-            <th>Time Left </th> 
-            <th>Gamer Status </th>
-          </tr>
-        </thead>
-        <tbody>
-<!-- screens names -->
-        
-            <?php 
-            while($row = mysqli_fetch_assoc($result))
-            {
-            ?>
-            <tr>
-          <!-------  fetching users from database  ------->
-                <td><?php 
-                
-                $screen_name = "SELECT * FROM screen WHERE id= '".$row['screen_id']."'";
-                $check = mysqli_query($conn,$screen_name);
-                if($check !== FALSE){
-                    $row2 = mysqli_fetch_assoc($check);                        
-                    echo $row2['screen'];                                     
-                }else{
-                    echo "Error executing the query" . mysqli_error($conn);
+    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+      <thead>
+        <tr class="bg-dark text-white">
+          <th> Gamer Action  </th>
+          <th>Time Left </th>
+          <th>Screen</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- screens names -->
+
+        <?php
+        while ($row = mysqli_fetch_assoc($result)) {
+        ?>
+          <tr>
+
+            <td>
+              <button id="start" class="btn btn-danger">Start</button>
+              <button id="pauseButton" class="btn btn-success">Pause</button>
+              <button id="unpauseButton" class="btn btn-info">Continue</button>
+              <!-- </form> -->
+            </td>
+            <!-- duration timer -->
+            <td>
+
+
+              <!-- <?php echo $row["duration"]; ?> </br> -->
+              <?php
+
+              $d_id = $row["id"];
+              // echo $d_id;
+
+              $to_time1 = $row["duration"];
+              // echo htmlspecialchars($t);
+              echo $to_time1;
+
+              $date = strtotime($row["date"]);
+              // $t = date("h:i:s", $date);
+              //echo $t;
+              ?>
+
+              <div data-duration="<?= $row["duration"]; ?>" class="timer center" id="tim" style="display: flex; font-size: 24px; font-weight:bold; margin:5px;"></div>
+
+              <script>
+                var serverDate = <?php echo $date ?>;
+
+
+                //   // Defines identifiers for accessing HTML elements
+                //       const startButton = document.getElementById("startButton")
+                //       const pauseButton = document.getElementById("pauseButton")
+                //       const unpauseButton = document.getElementById("unpauseButton")
+
+                // // event listeners for the button
+                //       startButton.addEventListener('click', start);
+                //       pauseButton.addEventListener('click', pauseTimer);
+                //       unpauseButton.addEventListener('click', runTimer);
+
+                //       //Disables buttons that are not needed yet
+                //     disable(pauseButton);
+                //     disable(unpauseButton);
+                // function myFunction(setTime) {
+
+                //   clearInterval(timerLoop);
+
+                //   var timerLoop = setInterval(function countDownTimer(setTime) {
+                //     console.log("This is timeLoop", timerLoop);
+                //     console.log("This is setTime", setTime);
+                //     const currentTime = Date.now();
+
+                //     // const remainingTime = futureTime - currentTime;
+                //     const remainingTime = setTime - currentTime;
+
+                //     const hrs = Math.floor((remainingTime / (1000 * 60 * 60)) % 24).toLocaleString('en-US', {
+                //       minimumIntegerDigits: 2,
+                //       useGrouping: false
+                //     });
+                //     const mins = Math.floor((remainingTime / (1000 * 60)) % 60).toLocaleString('en-US', {
+                //       minimumIntegerDigits: 2,
+                //       useGrouping: false
+                //     });
+                //     const secs = Math.floor((remainingTime / 1000) % 60).toLocaleString('en-US', {
+                //       minimumIntegerDigits: 2,
+                //       useGrouping: false
+                //     });
+
+                //     const formattedTime = `${hrs}:${mins}:${secs}`;
+                //     console.log(formattedTime);
+
+                //     // timer.textContent = formattedTime;
+
+                //     // var allTimers = document.body.querySelectorAll('.timer');
+
+                //     demo.textContent = formattedTime;
+
+                //     if (remainingTime < 0) {
+                //       clearInterval(timerLoop);
+                //       // timer.textContent = "00:00:00";
+                //       demo.textContent = "00:00:00";
+                //       // timer.style.color = "lightgrey";
+                //     }
+
+                //   }, 1000);
+                // }
+
+
+                document.querySelectorAll("#tim").forEach((value) => {
+                  demoFunction(value);
+                });
+
+
+                function demoFunction(demo) {
+                  var duration = demo.getAttribute('data-duration');
+                  var dbTime = new Date(serverDate * 1000);
+
+                  var x = Number(duration);
+                  var setTime = dbTime.setMinutes(dbTime.getMinutes() + x);
+
+                  var button = document.getElementById("start");
+                  button.addEventListener('click', function() {
+                    myFunction(setTime, demo);
+                  });
                 }
-                
 
-                    
-            // select from screens where id = $row['screen_id'];
-            // $row2 = mysqli_fetch_assoc($result)
-            //echo $row2['']
 
-            // echo "<div class='timer'></div>";
+                // start of myFunction
+
+                function myFunction(setTime, demo) {
+                  clearInterval(timerLoop);
+
+                  var timerLoop = setInterval(function countDownTimer() {
+                    // ... (rest of the code for the countDownTimer function)
+                    console.log("This is timeLoop", timerLoop);
+                    console.log("This is setTime", setTime);
+                    const currentTime = Date.now();
+
+                    // const remainingTime = futureTime - currentTime;
+                    const remainingTime = setTime - currentTime;
+
+                    const hrs = Math.floor((remainingTime / (1000 * 60 * 60)) % 24).toLocaleString('en-US', {
+                      minimumIntegerDigits: 2,
+                      useGrouping: false
+                    });
+                    const mins = Math.floor((remainingTime / (1000 * 60)) % 60).toLocaleString('en-US', {
+                      minimumIntegerDigits: 2,
+                      useGrouping: false
+                    });
+                    const secs = Math.floor((remainingTime / 1000) % 60).toLocaleString('en-US', {
+                      minimumIntegerDigits: 2,
+                      useGrouping: false
+                    });
+
+                    const formattedTime = `${hrs}:${mins}:${secs}`;
+                    console.log(formattedTime);
+
+                    // timer.textContent = formattedTime;
+
+                    // var allTimers = document.body.querySelectorAll('.timer');
+
+                    demo.textContent = formattedTime;
+
+                    if (remainingTime < 0) {
+                      clearInterval(timerLoop);
+                      // timer.textContent = "00:00:00";
+                      demo.textContent = "00:00:00";
+                      // timer.style.color = "lightgrey";
+                    }
+
+                  }, 1000);
+                }
+                // end of myFunction
+
+
+
+                //   button.addEventListener("start", function(){
+
+                //   setTime = dbTime.setMinutes(dbTime.getMinutes() + x); // Date object
+
+
+                //   // future time => setTime = deadline
+                //   const futureTime = setTime;
+                // console.log(futureTime);
+                //   var timerLoop;  // timer variable
+
+                //     clearInterval(timerLoop);
+
+                //     timerLoop = setInterval(function countDownTimer() {
+
+                //     const currentTime = Date.now();
+
+                //     const remainingTime = futureTime - currentTime;  
+
+                //     const hrs = Math.floor((remainingTime / (1000 * 60 * 60)) % 24).toLocaleString('en-US', { minimumIntegerDigits: 2, useGrouping: false });
+                //     const mins = Math.floor((remainingTime / (1000 * 60)) % 60).toLocaleString('en-US', { minimumIntegerDigits: 2, useGrouping: false });
+                //     const secs = Math.floor((remainingTime / 1000) % 60).toLocaleString('en-US', { minimumIntegerDigits: 2, useGrouping: false });
+
+                //     const formattedTime = `${hrs}:${mins}:${secs}`;
+                //     console.log(formattedTime);
+
+                //     // timer.textContent = formattedTime;
+
+                //     // var allTimers = document.body.querySelectorAll('.timer');
+
+                //       demo.textContent = formattedTime;
+
+                //     if (remainingTime < 0) {
+                //         clearInterval(timerLoop);
+                //         // timer.textContent = "00:00:00";
+                //         demo.textContent = "00:00:00";         
+                //         // timer.style.color = "lightgrey";
+                //     }
+
+                // }, 1000);
+                // });
+
+                // countDownTimer();
+
+
+                // })
+              </script>
+              <!-- <p id="response" style="font-weight:bolder;"></p>                   -->
+            </td>
+            <!-- end of duration timer -->
+            <!-------  fetching screens from database  ------->
+            <td><?php
+
+                $screen_name = "SELECT * FROM screen WHERE id= '" . $row['screen_id'] . "'";
+                $check = mysqli_query($conn, $screen_name);
+                if ($check !== FALSE) {
+                  $row2 = mysqli_fetch_assoc($check);
+                  echo $row2['screen'];
+                } else {
+                  echo "Error executing the query" . mysqli_error($conn);
+                }
+
+
+
+                // select from screens where id = $row['screen_id'];
+                // $row2 = mysqli_fetch_assoc($result)
+                //echo $row2['']
+
+                // echo "<div class='timer'></div>";
                 ?>
-                </td>
-                <td>
-
-                  
-                  <!-- <?php echo $row["duration"]; ?> </br> -->
-<?php
-$date = strtotime($row["date"]);
-// $t = date("h:i:s", $date);
-//echo $t;
-$d_id = $row["id"];
-// echo $d_id;
-
-$to_time1= $row["duration"];
-// echo htmlspecialchars($t);
-echo $to_time1;
-?>
-
-<div data-duration="<?=$row["duration"];?>" class="timer center" id="tim" style="display: flex; font-size: 24px; font-weight:bold; margin:5px;"></div>
-
-<script>
-  
-//   // Defines identifiers for accessing HTML elements
-//       const startButton = document.getElementById("startButton")
-//       const pauseButton = document.getElementById("pauseButton")
-//       const unpauseButton = document.getElementById("unpauseButton")
-
-// // event listeners for the button
-//       startButton.addEventListener('click', start);
-//       pauseButton.addEventListener('click', pauseTimer);
-//       unpauseButton.addEventListener('click', runTimer);
-
-//       //Disables buttons that are not needed yet
-//     disable(pauseButton);
-//     disable(unpauseButton);
-
-
-
-document.querySelectorAll("#tim").forEach(function(demo){
-
-  var button = document.getElementById("start");
-
-  var duration = demo.getAttribute('data-duration');
-  var dbTime = new Date(<?php echo strtotime($row["date"]); ?> * 1000);
-  
-  // var c_t = <?php echo $to_time1 ?>;
-  var x = Number(duration);
-  
-  // var t_s = <?php echo json_encode($t) ?>;
-  // var now = new Date();
-  // now.setMinutes(now.getMinutes() + x); // timestamp
-
-  var setTime = (dbTime.getMinutes() + x); // Date object
-
-
-
-  // future time => setTime = deadline
-  const futureTime = setTime;
-  
-  var timerLoop;
-
-  button.addEventListener("click", function(){
-
-    clearInterval(timerLoop);
-
-    timerLoop = setInterval(function countDownTimer() {
-
-    const currentTime = Date.now();
-    const remainingTime = futureTime - currentTime;  
-      
-    const hrs = Math.floor((remainingTime / (1000 * 60 * 60)) % 24).toLocaleString('en-US', { minimumIntegerDigits: 2, useGrouping: false });
-    const mins = Math.floor((remainingTime / (1000 * 60)) % 60).toLocaleString('en-US', { minimumIntegerDigits: 2, useGrouping: false });
-    const secs = Math.floor((remainingTime / 1000) % 60).toLocaleString('en-US', { minimumIntegerDigits: 2, useGrouping: false });
-
-    const formattedTime = `${hrs}:${mins}:${secs}`;
-    console.log(formattedTime);
-
-    // timer.textContent = formattedTime;
-
-    // var allTimers = document.body.querySelectorAll('.timer');
-
-      demo.textContent = formattedTime;
-
-    if (remainingTime < 0) {
-        clearInterval(timerLoop);
-        // timer.textContent = "00:00:00";
-        demo.textContent = "00:00:00";         
-        // timer.style.color = "lightgrey";
-    }
-
-}, 1000);
-});
-  
-  // countDownTimer();
-
-  
-})
-</script>
-                  <!-- <p id="response" style="font-weight:bolder;"></p>                   -->                    
-                </td>  
-                <td>
-                <button id="start" class="btn btn-danger">Start</button>
-                <button id="pauseButton" class="btn btn-success">Pause</button>
-                <button id="unpauseButton" class="btn btn-info">Continue</button>
-
-                <button type="submit" id="control" name="#" class="btn btn-danger">control Time</button>
-              </form>                
-              </td>
+            </td>
+            <!-- end of screens -->
           </tr>
-          <?php
-          }
-          ?>          
-        </tbody>
-      </table>
+        <?php
+        }
+        ?>
+      </tbody>
+    </table>
 
 
-    </div>
+  </div>
 
-<!-- <script src="script.js"></script> -->
+  <!-- <script src="script.js"></script> -->
 
-
-<?php
-// echo $to_time1;
-// $_SESSION["end_time"] = strtotime(' 5 minute');
-// $currentTimestamp = time();
-// $end_Time = strtotime("+ $to_time1 minute");
-
-// if($end_Time !== false){
-//     $remaining_time = $end_Time - $currentTimestamp;
-
-//     if($remaining_time > 0){
-//         $hours = floor($remaining_time / 3600);
-//         $minutes = floor(($remaining_time % 3600) / 60);
-//         $seconds = $remaining_time % 60;
-        
-//         echo "Time remaining: $hours hours, $minutes minutes, $seconds seconds";
-//     }else{
-//         echo "Countdown expired";
-//     }
-// }else{
-//     echo "Invalid duration Format";
-// }
-?>
 
   <?php
-include('includes/scripts.php');
-include('includes/footer.php');
-?>
+  // echo $to_time1;
+  // $_SESSION["end_time"] = strtotime(' 5 minute');
+  // $currentTimestamp = time();
+  // $end_Time = strtotime("+ $to_time1 minute");
+
+  // if($end_Time !== false){
+  //     $remaining_time = $end_Time - $currentTimestamp;
+
+  //     if($remaining_time > 0){
+  //         $hours = floor($remaining_time / 3600);
+  //         $minutes = floor(($remaining_time % 3600) / 60);
+  //         $seconds = $remaining_time % 60;
+
+  //         echo "Time remaining: $hours hours, $minutes minutes, $seconds seconds";
+  //     }else{
+  //         echo "Countdown expired";
+  //     }
+  // }else{
+  //     echo "Invalid duration Format";
+  // }
+  ?>
+
+  <?php
+  include('includes/scripts.php');
+  include('includes/footer.php');
+  ?>
