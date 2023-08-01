@@ -218,7 +218,7 @@ while ($row1 = mysqli_fetch_assoc($c_timer)) {
     <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
       <thead>
         <tr class="bg-dark text-white">
-          <th> Gamer Action  </th>
+          <th> Gamer Action </th>
           <th>Time Left </th>
           <th>Screen</th>
         </tr>
@@ -251,16 +251,30 @@ while ($row1 = mysqli_fetch_assoc($c_timer)) {
               // echo htmlspecialchars($t);
               echo $to_time1;
 
-              $date = strtotime($row["date"]);
-              // $t = date("h:i:s", $date);
+              $dat = strtotime($row["date"]);
+              //$t = date("h:i:s", $dat);
               //echo $t;
               ?>
 
               <div data-duration="<?= $row["duration"]; ?>" class="timer center" id="tim" style="display: flex; font-size: 24px; font-weight:bold; margin:5px;"></div>
 
               <script>
-                var serverDate = <?php echo $date ?>;
+                var serverDate = new Date(<?php echo $dat * 1000; ?>);
 
+                var formatter = new Intl.DateTimeFormat("en-US", {
+                  timeZone: "Africa/Nairobi",
+                  hour: "2-digit",
+                  minute: "2-digit",
+                  second: "2-digit"
+                });
+                var pstDate = formatter.format(serverDate);
+                // Convert pstDate to a Date object
+                // var pstDateObj = new Date(pstDate);
+                // console.log(pstDateObj);
+                // // Get the time value (in milliseconds since the Unix Epoch)
+                // var timeInMilliseconds = pstDateObj.getTime();
+
+                // console.log(timeInMilliseconds);
 
                 //   // Defines identifiers for accessing HTML elements
                 //       const startButton = document.getElementById("startButton")
@@ -320,17 +334,18 @@ while ($row1 = mysqli_fetch_assoc($c_timer)) {
                 // }
 
 
-                document.querySelectorAll("#tim").forEach((value) => {
-                  demoFunction(value);
+                document.querySelectorAll("#tim").forEach((demo) => {
+                  demoFunction(demo);
                 });
 
 
                 function demoFunction(demo) {
                   var duration = demo.getAttribute('data-duration');
-                  var dbTime = new Date(serverDate * 1000);
+                  var pstDateObj = new Date(pstDate);
+                  var dbTime = Number(pstDateObj);
 
                   var x = Number(duration);
-                  var setTime = dbTime.setMinutes(dbTime.getMinutes() + x);
+                  var setTime = (dbTime + x);
 
                   var button = document.getElementById("start");
                   button.addEventListener('click', function() {
