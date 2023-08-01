@@ -261,13 +261,44 @@ while ($row1 = mysqli_fetch_assoc($c_timer)) {
               <script>
                 var serverDate = new Date(<?php echo $dat * 1000; ?>);
 
+                // var formatter = new Intl.DateTimeFormat("en-US", {
+                //   timeZone: "Africa/Nairobi",
+                //   year: "numeric",
+                //   month: "numeric",
+                //   day: "numeric",
+                //   hour: "numeric",
+                //   minute: "numeric",
+                //   second: "numeric"
+                // });
+                // var pstDate = formatter.format(serverDate);
+
                 var formatter = new Intl.DateTimeFormat("en-US", {
                   timeZone: "Africa/Nairobi",
-                  hour: "2-digit",
-                  minute: "2-digit",
-                  second: "2-digit"
+                  year: "numeric",
+                  month: "numeric",
+                  day: "numeric",
+                  hour: "numeric",
+                  minute: "numeric",
+                  second: "numeric"
                 });
                 var pstDate = formatter.format(serverDate);
+                console.log("the new date is " + pstDate);
+
+                // Create a Date object
+                // var pstDateObj = new Date(pstDate);
+
+                // console.log(pstDateObj);
+
+                // pstDateObj.setMinutes(pstDateObj.getMinutes() + 30);
+
+                // var hours = pstDateObj.getHours();
+                // var minutes = pstDateObj.getMinutes();
+                // var seconds = pstDateObj.getSeconds();
+
+                // var timeString = hours.toString().padStart(2, "0") + ":" + minutes.toString().padStart(2, "0") + ":" + seconds.toString().padStart(2, "0");
+                // console.log(timeString);
+
+                // console.log(pstDateObject);
                 // Convert pstDate to a Date object
                 // var pstDateObj = new Date(pstDate);
                 // console.log(pstDateObj);
@@ -341,11 +372,27 @@ while ($row1 = mysqli_fetch_assoc($c_timer)) {
 
                 function demoFunction(demo) {
                   var duration = demo.getAttribute('data-duration');
-                  var pstDateObj = new Date(pstDate);
-                  var dbTime = Number(pstDateObj);
-
                   var x = Number(duration);
-                  var setTime = (dbTime + x);
+                  console.log("Duration is " + x);
+
+                  var pstDateObj = new Date(pstDate);
+                  console.log("timeStample is " + pstDateObj);
+
+                  // Subtract one hour from the date object (since it is one hour ahead)
+                  pstDateObj.setHours(pstDateObj.getHours() - 1);
+                  console.log("Adjusted timestamp is " + pstDateObj);
+
+                  var setTime = pstDateObj.setMinutes(pstDateObj.getMinutes() + x);
+                  console.log("setTime is " + setTime);
+                  // console.log(setTime);
+                  // var hours = pstDateObj.getHours();
+                  // var minutes = pstDateObj.getMinutes();
+                  // var seconds = pstDateObj.getSeconds();
+
+                  // var timeString = hours.toString().padStart(2, "0") + ":" + minutes.toString().padStart(2, "0") + ":" + seconds.toString().padStart(2, "0");
+
+                  // var setTime = new Date(timeString);
+                  // console.log(setTime);
 
                   var button = document.getElementById("start");
                   button.addEventListener('click', function() {
@@ -361,12 +408,13 @@ while ($row1 = mysqli_fetch_assoc($c_timer)) {
 
                   var timerLoop = setInterval(function countDownTimer() {
                     // ... (rest of the code for the countDownTimer function)
-                    console.log("This is timeLoop", timerLoop);
                     console.log("This is setTime", setTime);
                     const currentTime = Date.now();
+                    console.log("This is currentTime", currentTime);
 
                     // const remainingTime = futureTime - currentTime;
                     const remainingTime = setTime - currentTime;
+                    console.log("The deadline " + remainingTime);
 
                     const hrs = Math.floor((remainingTime / (1000 * 60 * 60)) % 24).toLocaleString('en-US', {
                       minimumIntegerDigits: 2,
