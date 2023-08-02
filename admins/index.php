@@ -232,7 +232,7 @@ while ($row1 = mysqli_fetch_assoc($c_timer)) {
           <tr>
 
             <td>
-              <button id="start" class="btn btn-danger">Start</button>
+              <button id="start" class="btn btn-danger" onclick=" btn(<?= $row['id']; ?>) ">Start</button>
               <button id="pauseButton" class="btn btn-success">Pause</button>
               <button id="unpauseButton" class="btn btn-info">Continue</button>
               <!-- </form> -->
@@ -282,7 +282,7 @@ while ($row1 = mysqli_fetch_assoc($c_timer)) {
                   second: "numeric"
                 });
                 var pstDate = formatter.format(serverDate);
-                console.log("the new date is " + pstDate);
+                // console.log("the new date is " + pstDate);
 
                 // Create a Date object
                 // var pstDateObj = new Date(pstDate);
@@ -369,21 +369,29 @@ while ($row1 = mysqli_fetch_assoc($c_timer)) {
                   demoFunction(demo);
                 });
 
+                function btn(id) {
+                  // Assuming the `id` represents some unique identifier or data related to the button
+                  console.log("Button clicked with ID:", id);
+
+                  // Your additional code based on the specific button click
+                  // For example, you can call the countdown timer function here.
+                  // If you have multiple buttons with different behaviors, you can use the `id` to differentiate and perform specific actions.
+                }
 
                 function demoFunction(demo) {
                   var duration = demo.getAttribute('data-duration');
                   var x = Number(duration);
-                  console.log("Duration is " + x);
+                  // console.log("Duration is " + x);
 
                   var pstDateObj = new Date(pstDate);
-                  console.log("timeStample is " + pstDateObj);
+                  // console.log("timeStample is " + pstDateObj);
 
                   // Subtract one hour from the date object (since it is one hour ahead)
                   pstDateObj.setHours(pstDateObj.getHours() - 1);
-                  console.log("Adjusted timestamp is " + pstDateObj);
+                  // console.log("Adjusted timestamp is " + pstDateObj);
 
                   var setTime = pstDateObj.setMinutes(pstDateObj.getMinutes() + x);
-                  console.log("setTime is " + setTime);
+                  // console.log("setTime is " + setTime);
                   // console.log(setTime);
                   // var hours = pstDateObj.getHours();
                   // var minutes = pstDateObj.getMinutes();
