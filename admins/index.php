@@ -232,8 +232,8 @@ while ($row1 = mysqli_fetch_assoc($c_timer)) {
           <tr>
 
             <td>
-              <button id="start" class="btn btn-danger" onclick=" btn(<?= $row['id']; ?>) ">Start</button>
-              <button id="pauseButton" class="btn btn-success">Pause</button>
+              <button data-id="<?= $row['id']; ?>" id="start" class="btn btn-danger" onclick="startPlay() ">Start</button>
+              <button id="pause" class="btn btn-success" onclick="pause()">Pause</button>
               <button id="unpauseButton" class="btn btn-info">Continue</button>
               <!-- </form> -->
             </td>
@@ -260,17 +260,6 @@ while ($row1 = mysqli_fetch_assoc($c_timer)) {
 
               <script>
                 var serverDate = new Date(<?php echo $dat * 1000; ?>);
-
-                // var formatter = new Intl.DateTimeFormat("en-US", {
-                //   timeZone: "Africa/Nairobi",
-                //   year: "numeric",
-                //   month: "numeric",
-                //   day: "numeric",
-                //   hour: "numeric",
-                //   minute: "numeric",
-                //   second: "numeric"
-                // });
-                // var pstDate = formatter.format(serverDate);
 
                 var formatter = new Intl.DateTimeFormat("en-US", {
                   timeZone: "Africa/Nairobi",
@@ -369,13 +358,14 @@ while ($row1 = mysqli_fetch_assoc($c_timer)) {
                   demoFunction(demo);
                 });
 
-                function btn(id) {
+                document.getElementById("pause").style.display = 'none';
+                function startPlay(id) {
                   // Assuming the `id` represents some unique identifier or data related to the button
-                  console.log("Button clicked with ID:", id);
+                  var btn = id.getAttribute('data-id');
 
-                  // Your additional code based on the specific button click
-                  // For example, you can call the countdown timer function here.
-                  // If you have multiple buttons with different behaviors, you can use the `id` to differentiate and perform specific actions.
+                  document.getElementById('pause').style.display = 'inline';
+                  console.log("Button clicked with ID:", id);
+                  
                 }
 
                 function demoFunction(demo) {
@@ -402,10 +392,13 @@ while ($row1 = mysqli_fetch_assoc($c_timer)) {
                   // var setTime = new Date(timeString);
                   // console.log(setTime);
 
-                  var button = document.getElementById("start");
+                  
+                  var button = document.getElementById("start", );
                   button.addEventListener('click', function() {
                     myFunction(setTime, demo);
                   });
+
+                  
                 }
 
 
@@ -416,13 +409,13 @@ while ($row1 = mysqli_fetch_assoc($c_timer)) {
 
                   var timerLoop = setInterval(function countDownTimer() {
                     // ... (rest of the code for the countDownTimer function)
-                    console.log("This is setTime", setTime);
+                    // console.log("This is setTime", setTime);
                     const currentTime = Date.now();
-                    console.log("This is currentTime", currentTime);
+                    // console.log("This is currentTime", currentTime);
 
                     // const remainingTime = futureTime - currentTime;
                     const remainingTime = setTime - currentTime;
-                    console.log("The deadline " + remainingTime);
+                    // console.log("The deadline " + remainingTime);
 
                     const hrs = Math.floor((remainingTime / (1000 * 60 * 60)) % 24).toLocaleString('en-US', {
                       minimumIntegerDigits: 2,
@@ -454,8 +447,18 @@ while ($row1 = mysqli_fetch_assoc($c_timer)) {
                     }
 
                   }, 1000);
+
+                  // pause button
+                  function pause() {
+                    clearInterval(timerLoop);
+                    document.getElementById('start').style.display = 'inline';
+                    document.getElementById('pause').style.display = 'none';
+                  }
+                  // end of pause button
                 }
                 // end of myFunction
+
+
 
 
 
