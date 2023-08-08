@@ -232,9 +232,9 @@ while ($row1 = mysqli_fetch_assoc($c_timer)) {
           <tr>
 
             <td>
-              <button data-id="<?= $row['id']; ?>" id="start" class="btn btn-danger" onclick="startTimer()">Start</button>
+              <button data-id="<?php $row['id']; ?>" id="start" class="btn btn-danger" onclick="startTimer(<?php $row['id']; ?>)">Start</button>
 
-              <button id='pause' class="btn btn-info" onclick="pause()">Pause</button>
+              <button id='pause' class="btn btn-info" onclick="pauseTimer(<?php $row['id']; ?>)">Pause</button>
             </td>
             <!-- duration timer -->
             <td>
@@ -256,112 +256,214 @@ while ($row1 = mysqli_fetch_assoc($c_timer)) {
               ?>
 
               <div data-duration="<?= $row["duration"]; ?>" class="timer center" id="<?= $row['id']; ?>" style="display: flex; font-size: 24px; font-weight:bold; margin:5px;"></div>
-      <tbody id="timers">
-        <!-- Timer rows will be dynamically added here -->
-      </tbody>
+      
 
       <script>
         var timers = {}; // An object to store timer objects and their respective IDs
 
-        function createTimerElement(id, duration) {
-          var timerElement = document.createElement('div');
-          timerElement.classList.add('timer', 'center');
-          timerElement.style.display = 'flex';
-          timerElement.style.fontSize = '24px';
-          timerElement.style.fontWeight = 'bold';
-          timerElement.style.margin = '5px';
-          timerElement.setAttribute('data-duration', duration);
-          timers[id] = timerElement; // Store the timer element in the 'timers' object
-          return timerElement;
-        }
+function createTimer(id, duration) {
+  var timerElement = document.createElement('div');
+  timerElement.classList.add('timer', 'center');
+  timerElement.style.display = 'flex';
+  timerElement.style.fontSize = '24px';
+  timerElement.style.fontWeight = 'bold';
+  timerElement.style.margin = '5px';
+  timerElement.setAttribute('id', `timer_${id}`);
+  timers[id] = {
+    element: timerElement,
+    duration: duration,
+    timerId: null, // Store the timer interval ID
+  };
+}
+
+function pauseTimer(id) {
+  clearInterval(timers[id].timerId);
+  document.getElementById(`start_${id}`).style.display = 'inline';
+  document.getElementById(`pause_${id}`).style.display = 'none';
+}
+
+function startTimer(id) {
+  document.getElementById(`start_${id}`).style.display = 'none';
+  document.getElementById(`pause_${id}`).style.display = 'inline';
+
+  var demo = timers[id].element;
+  var duration = timers[id].duration;
+  var x = Number(duration);
+
+  var serverDate = new Date(<?php echo $dat * 1000; ?>);
+  var formatter = new Intl.DateTimeFormat("en-US", {
+    timeZone: "Africa/Nairobi",
+    year: "numeric",
+    month: "numeric",
+    day: "numeric",
+    hour: "numeric",
+    minute: "numeric",
+    second: "numeric"
+  });
+  var pstDate = formatter.format(serverDate);
+
+  var pstDateObj = new Date(pstDate);
+  pstDateObj.setHours(pstDateObj.getHours() - 1);
+
+  var setTime = pstDateObj.setMinutes(pstDateObj.getMinutes() + x);
+  console.log("This is setTime", setTime);    
+
+  timers[id].timerId = setInterval(function countDownTimer() {
+    // ... (the rest of your timer logic)
+    const currentTime = Date.now();
+    console.log("This is currentTime", currentTime);
+
+    // const remainingTime = futureTime - currentTime;
+    const remainingTime = setTime - currentTime;
+    console.log("The deadline " + remainingTime);
+
+    const hrs = Math.floor((remainingTime / (1000 * 60 * 60)) % 24).toLocaleString('en-US', {
+      minimumIntegerDigits: 2,
+      useGrouping: false
+    });
+    const mins = Math.floor((remainingTime / (1000 * 60)) % 60).toLocaleString('en-US', {
+      minimumIntegerDigits: 2,
+      useGrouping: false
+    });
+    const secs = Math.floor((remainingTime / 1000) % 60).toLocaleString('en-US', {
+      minimumIntegerDigits: 2,
+      useGrouping: false
+    });
+
+    const formattedTime = `${hrs}:${mins}:${secs}`;
+
+    if (remainingTime < 0) {
+      clearInterval(timers[id].timerId);
+      demo.textContent = "00:00:00";
+    }
+
+  }, 1000);
+}
+
+// Fetch data from the database (example: hardcoded data)
+var dataFromDatabase = [
+  <?php
+  while ($row = mysqli_fetch_assoc($result)) {
+    echo "{ id: " . $row['id'] . ", duration: " . $row['duration'] . " },";
+  }
+  ?>
+];
+
+// Dynamically create timers based on the data fetched from the database
+dataFromDatabase.forEach(function(timerData) {
+  createTimer(timerData.id, timerData.duration);
+
+  var row = document.createElement('tr');
+
+  // Create cell for the timer display
+  var timerCell = document.createElement('td');
+  var timerElement = timers[timerData.id].element;
+  timerCell.appendChild(timerElement);
+
+  // Create cell for the start button
+  var startCell = document.createElement('td');
+  var startButton = document.createElement('button');
+  startButton.textContent = 'Start';
+  startButton.id = `start_${timerData.id}`;
+  startButton.classList.add('btn', 'btn-danger');
+  startButton.onclick = function() {
+    startTimer(timerData.id);
+  };
+  startCell.appendChild(startButton);
 
-        function pauseTimer(id) {
-          clearInterval(timers[id].timerId);
-          document.getElementById(`start_${id}`).style.display = 'inline';
-          document.getElementById(`pause_${id}`).style.display = 'none';
-        }
+  // Create cell for the pause button
+  var pauseCell = document.createElement('td');
+  var pauseButton = document.createElement('button');
+  pauseButton.textContent = 'Pause';
+  pauseButton.id = `pause_${timerData.id}`;
+  pauseButton.style.display = 'none'; // Hide the pause button initially
+  pauseButton.classList.add('btn', 'btn-info');
+  pauseButton.onclick = function() {
+    pauseTimer(timerData.id);
+  };
+  pauseCell.appendChild(pauseButton);
 
-        function startTimer(id) {
-          var demo = timers[id];
-          document.getElementById(`start_${id}`).style.display = 'none';
-          document.getElementById(`pause_${id}`).style.display = 'inline';
+  // Append cells to the row
+  row.appendChild(timerCell);
+  row.appendChild(startCell);
+  row.appendChild(pauseCell);
 
-          var duration = demo.getAttribute('data-duration');
-          var x = Number(duration);
+  // Append the row to the table body
+  var tableBody = document.querySelector('#dataTable tbody');
+  tableBody.appendChild(row);
+});
 
-          // Rest of your timer logic...
-          var serverDate = new Date();
-          // ... (the rest of your timer logic)
 
-          var setTime = pstDateObj.setMinutes(pstDateObj.getMinutes() + x);
 
-          demo.timerId = setInterval(function countDownTimer() {
-            // ... (the rest of your timer logic)
 
-            if (remainingTime < 0) {
-              clearInterval(demo.timerId);
-              demo.textContent = "00:00:00";
-            }
 
-          }, 1000);
-        }
 
-        // Fetch data from the database (example: hardcoded data)
-        var dataFromDatabase = [{
-            id: <?= $row['id']; ?>,
-            duration: <?= $row["duration"]; ?>
-          } // Add more timer data objects as needed...
-        ];
 
-        // Dynamically create timer rows based on the data fetched from the database
-        var timersContainer = document.getElementById('timers');
-        dataFromDatabase.forEach(function(timerData) {
-          var row = document.createElement('tr');
 
-          // Create cell for the timer element
-          var timerCell = document.createElement('td');
-          var timerElement = createTimerElement(timerData.id, timerData.duration);
-          timerCell.appendChild(timerElement);
 
-          // Create cell for the start button
-          var startCell = document.createElement('td');
-          var startButton = document.createElement('button');
-          startButton.textContent = 'Start';
-          startButton.id = `start_${timerData.id}`;
-          startButton.onclick = function() {
-            startTimer(timerData.id);
-          };
-          startCell.appendChild(startButton);
 
-          // Create cell for the pause button
-          var pauseCell = document.createElement('td');
-          var pauseButton = document.createElement('button');
-          pauseButton.textContent = 'Pause';
-          pauseButton.id = `pause_${timerData.id}`;
-          pauseButton.style.display = 'none'; // Hide the pause button initially
-          pauseButton.onclick = function() {
-            pauseTimer(timerData.id);
-          };
-          pauseCell.appendChild(pauseButton);
 
-          // Append cells to the row
-          row.appendChild(timerCell);
-          row.appendChild(startCell);
-          row.appendChild(pauseCell);
+        // var timerId;
 
-          // Append the row to the timers container
-          timersContainer.appendChild(row);
-        });
+        // function pause() {
+        //   clearInterval(timerId);
+        //   document.getElementById('start').style.display = 'inline';
+        //   document.getElementById('pause').style.display = 'none';
+        // }
 
+        // function startTimer() {
+        //   var demo = document.getElementById('<?= $row['id']; ?>'); // Get the timer element with the ID "tim"
+        //   var btn = document.getElementById('start').style.display = 'none';
+        //   document.getElementById('pause').style.display = 'inline';
 
+        //   var duration = demo.getAttribute('data-duration');
+        //   var x = Number(duration);
 
+        //   var serverDate = new Date(<?php echo $dat * 1000; ?>);
+        //   var formatter = new Intl.DateTimeFormat("en-US", {
+        //     timeZone: "Africa/Nairobi",
+        //     year: "numeric",
+        //     month: "numeric",
+        //     day: "numeric",
+        //     hour: "numeric",
+        //     minute: "numeric",
+        //     second: "numeric"
+        //   });
+        //   var pstDate = formatter.format(serverDate);
 
+        //   var pstDateObj = new Date(pstDate);
+        //   pstDateObj.setHours(pstDateObj.getHours() - 1);
+        //   var setTime = pstDateObj.setMinutes(pstDateObj.getMinutes() + x);
 
+        //   timerId = setInterval(function countDownTimer() {
+        //     const currentTime = Date.now();
+        //     const remainingTime = setTime - currentTime;
 
+        //     const hrs = Math.floor((remainingTime / (1000 * 60 * 60)) % 24).toLocaleString('en-US', {
+        //       minimumIntegerDigits: 2,
+        //       useGrouping: false
+        //     });
+        //     const mins = Math.floor((remainingTime / (1000 * 60)) % 60).toLocaleString('en-US', {
+        //       minimumIntegerDigits: 2,
+        //       useGrouping: false
+        //     });
+        //     const secs = Math.floor((remainingTime / 1000) % 60).toLocaleString('en-US', {
+        //       minimumIntegerDigits: 2,
+        //       useGrouping: false
+        //     });
 
+        //     const formattedTime = `${hrs}:${mins}:${secs}`;
+        //     console.log(formattedTime);
 
+        //     demo.textContent = formattedTime;
 
+        //     if (remainingTime < 0) {
+        //       clearInterval(timerId);
+        //       demo.textContent = "00:00:00";
+        //     }
 
+        //   }, 1000);
+        // }
 
 
 
@@ -369,155 +471,42 @@ while ($row1 = mysqli_fetch_assoc($c_timer)) {
 
 
 
+        // var serverDate = new Date(<?php echo $dat * 1000; ?>);
 
+        // var formatter = new Intl.DateTimeFormat("en-US", {
+        //   timeZone: "Africa/Nairobi",
+        //   year: "numeric",
+        //   month: "numeric",
+        //   day: "numeric",
+        //   hour: "numeric",
+        //   minute: "numeric",
+        //   second: "numeric"
+        // });
+        // var pstDate = formatter.format(serverDate);
 
+        // document.querySelectorAll("#tim").forEach((demo) => {
+        //   demoFunction(demo);
+        // });
 
+        // function demoFunction(demo) {
+        //   var duration = demo.getAttribute('data-duration');
+        //   var x = Number(duration);
 
+        //   var pstDateObj = new Date(pstDate);
 
+        //   // Subtract one hour from the date object (since it is one hour ahead)
+        //   pstDateObj.setHours(pstDateObj.getHours() - 1);
+        //   // console.log("Adjusted timestamp is " + pstDateObj);
 
+        //   var setTime = pstDateObj.setMinutes(pstDateObj.getMinutes() + x);
 
+        //   var button = document.getElementById("start", );
+        //   button.addEventListener('click', function() {
 
+        //     myFunction(setTime, demo);
+        //   });
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        var timerId;
-
-        function pause() {
-          clearInterval(timerId);
-          document.getElementById('start').style.display = 'inline';
-          document.getElementById('pause').style.display = 'none';
-        }
-
-        function startTimer() {
-          var demo = document.getElementById('<?= $row['id']; ?>'); // Get the timer element with the ID "tim"
-          var btn = document.getElementById('start').style.display = 'none';
-          document.getElementById('pause').style.display = 'inline';
-
-          var duration = demo.getAttribute('data-duration');
-          var x = Number(duration);
-
-          var serverDate = new Date(<?php echo $dat * 1000; ?>);
-          var formatter = new Intl.DateTimeFormat("en-US", {
-            timeZone: "Africa/Nairobi",
-            year: "numeric",
-            month: "numeric",
-            day: "numeric",
-            hour: "numeric",
-            minute: "numeric",
-            second: "numeric"
-          });
-          var pstDate = formatter.format(serverDate);
-
-          var pstDateObj = new Date(pstDate);
-          pstDateObj.setHours(pstDateObj.getHours() - 1);
-          var setTime = pstDateObj.setMinutes(pstDateObj.getMinutes() + x);
-
-          timerId = setInterval(function countDownTimer() {
-            const currentTime = Date.now();
-            const remainingTime = setTime - currentTime;
-
-            const hrs = Math.floor((remainingTime / (1000 * 60 * 60)) % 24).toLocaleString('en-US', {
-              minimumIntegerDigits: 2,
-              useGrouping: false
-            });
-            const mins = Math.floor((remainingTime / (1000 * 60)) % 60).toLocaleString('en-US', {
-              minimumIntegerDigits: 2,
-              useGrouping: false
-            });
-            const secs = Math.floor((remainingTime / 1000) % 60).toLocaleString('en-US', {
-              minimumIntegerDigits: 2,
-              useGrouping: false
-            });
-
-            const formattedTime = `${hrs}:${mins}:${secs}`;
-            console.log(formattedTime);
-
-            demo.textContent = formattedTime;
-
-            if (remainingTime < 0) {
-              clearInterval(timerId);
-              demo.textContent = "00:00:00";
-            }
-
-          }, 1000);
-        }
-
-
-
-
-
-
-
-        var serverDate = new Date(<?php echo $dat * 1000; ?>);
-
-        var formatter = new Intl.DateTimeFormat("en-US", {
-          timeZone: "Africa/Nairobi",
-          year: "numeric",
-          month: "numeric",
-          day: "numeric",
-          hour: "numeric",
-          minute: "numeric",
-          second: "numeric"
-        });
-        var pstDate = formatter.format(serverDate);
-
-        document.querySelectorAll("#tim").forEach((demo) => {
-          demoFunction(demo);
-        });
-
-        function demoFunction(demo) {
-          var duration = demo.getAttribute('data-duration');
-          var x = Number(duration);
-
-          var pstDateObj = new Date(pstDate);
-
-          // Subtract one hour from the date object (since it is one hour ahead)
-          pstDateObj.setHours(pstDateObj.getHours() - 1);
-          // console.log("Adjusted timestamp is " + pstDateObj);
-
-          var setTime = pstDateObj.setMinutes(pstDateObj.getMinutes() + x);
-
-          var button = document.getElementById("start", );
-          button.addEventListener('click', function() {
-
-            myFunction(setTime, demo);
-          });
-
-        }
+        // }
 
 
         // start of myFunction
