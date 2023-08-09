@@ -37,34 +37,7 @@ while ($row1 = mysqli_fetch_assoc($c_timer)) {
   // echo $id;
 }
 
-
-//echo $duration;
-
-
-// $adding= strtotime("17:26:11 + $duration minute");
-//   echo date('H:i:s', $adding);
-
-// $_session["end_time"]=$duration;
-// $_session["start_time"]=date("H:i:s");
-
-// $end_time=date('H:i:s', 
-//     strtotime('+'.$_session["end_time"].'duration', 
-//     strtotime('+'.$_session["start_time"])));
-
-// $_SESSION["end_time"]=$end_time;
-
 ?>
-
-<!-- 
-<script type="text/javascript">
-  setInterval(function(){
-    var xmlhttp = new XMLHttpRequest();
-    xmlhttp.open("GET", "progress.php",false);
-    xmlhttp.send(null);
-    document.getElementById("response").innerHTML=xmlhttp.responseText;
-  },1000);
-
-</script> -->
 
 <!-- Begin Page Content -->
 <div class="container-fluid">
@@ -232,9 +205,9 @@ while ($row1 = mysqli_fetch_assoc($c_timer)) {
           <tr>
 
             <td>
-              <button data-id="<?php $row['id']; ?>" id="start" class="btn btn-danger" onclick="startTimer(<?php $row['id']; ?>)">Start</button>
+              <button data-id="<?php echo $row['id']; ?>" id="start_<?php echo $row['id']; ?>" class="btn btn-danger" onclick="startTimer(<?php echo $row['id']; ?>)">Start</button>
 
-              <button id='pause' class="btn btn-info" onclick="pauseTimer(<?php $row['id']; ?>)">Pause</button>
+              <button id='pause_<?php echo $row['id']; ?>' class="btn btn-info" onclick="pauseTimer(<?php echo $row['id']; ?>)">Pause</button>
             </td>
             <!-- duration timer -->
             <td>
@@ -256,396 +229,173 @@ while ($row1 = mysqli_fetch_assoc($c_timer)) {
               ?>
 
               <div data-duration="<?= $row["duration"]; ?>" class="timer center" id="<?= $row['id']; ?>" style="display: flex; font-size: 24px; font-weight:bold; margin:5px;"></div>
-      
 
-      <script>
-        var timers = {}; // An object to store timer objects and their respective IDs
-
-function createTimer(id, duration) {
-  var timerElement = document.createElement('div');
-  timerElement.classList.add('timer', 'center');
-  timerElement.style.display = 'flex';
-  timerElement.style.fontSize = '24px';
-  timerElement.style.fontWeight = 'bold';
-  timerElement.style.margin = '5px';
-  timerElement.setAttribute('id', `timer_${id}`);
-  timers[id] = {
-    element: timerElement,
-    duration: duration,
-    timerId: null, // Store the timer interval ID
-  };
-}
-
-function pauseTimer(id) {
-  clearInterval(timers[id].timerId);
-  document.getElementById(`start_${id}`).style.display = 'inline';
-  document.getElementById(`pause_${id}`).style.display = 'none';
-}
-
-function startTimer(id) {
-  document.getElementById(`start_${id}`).style.display = 'none';
-  document.getElementById(`pause_${id}`).style.display = 'inline';
-
-  var demo = timers[id].element;
-  var duration = timers[id].duration;
-  var x = Number(duration);
-
-  var serverDate = new Date(<?php echo $dat * 1000; ?>);
-  var formatter = new Intl.DateTimeFormat("en-US", {
-    timeZone: "Africa/Nairobi",
-    year: "numeric",
-    month: "numeric",
-    day: "numeric",
-    hour: "numeric",
-    minute: "numeric",
-    second: "numeric"
-  });
-  var pstDate = formatter.format(serverDate);
-
-  var pstDateObj = new Date(pstDate);
-  pstDateObj.setHours(pstDateObj.getHours() - 1);
-
-  var setTime = pstDateObj.setMinutes(pstDateObj.getMinutes() + x);
-  console.log("This is setTime", setTime);    
-
-  timers[id].timerId = setInterval(function countDownTimer() {
-    // ... (the rest of your timer logic)
-    const currentTime = Date.now();
-    console.log("This is currentTime", currentTime);
-
-    // const remainingTime = futureTime - currentTime;
-    const remainingTime = setTime - currentTime;
-    console.log("The deadline " + remainingTime);
-
-    const hrs = Math.floor((remainingTime / (1000 * 60 * 60)) % 24).toLocaleString('en-US', {
-      minimumIntegerDigits: 2,
-      useGrouping: false
-    });
-    const mins = Math.floor((remainingTime / (1000 * 60)) % 60).toLocaleString('en-US', {
-      minimumIntegerDigits: 2,
-      useGrouping: false
-    });
-    const secs = Math.floor((remainingTime / 1000) % 60).toLocaleString('en-US', {
-      minimumIntegerDigits: 2,
-      useGrouping: false
-    });
-
-    const formattedTime = `${hrs}:${mins}:${secs}`;
-
-    if (remainingTime < 0) {
-      clearInterval(timers[id].timerId);
-      demo.textContent = "00:00:00";
-    }
-
-  }, 1000);
-}
-
-// Fetch data from the database (example: hardcoded data)
-var dataFromDatabase = [
-  <?php
-  while ($row = mysqli_fetch_assoc($result)) {
-    echo "{ id: " . $row['id'] . ", duration: " . $row['duration'] . " },";
-  }
-  ?>
-];
-
-// Dynamically create timers based on the data fetched from the database
-dataFromDatabase.forEach(function(timerData) {
-  createTimer(timerData.id, timerData.duration);
-
-  var row = document.createElement('tr');
-
-  // Create cell for the timer display
-  var timerCell = document.createElement('td');
-  var timerElement = timers[timerData.id].element;
-  timerCell.appendChild(timerElement);
-
-  // Create cell for the start button
-  var startCell = document.createElement('td');
-  var startButton = document.createElement('button');
-  startButton.textContent = 'Start';
-  startButton.id = `start_${timerData.id}`;
-  startButton.classList.add('btn', 'btn-danger');
-  startButton.onclick = function() {
-    startTimer(timerData.id);
-  };
-  startCell.appendChild(startButton);
-
-  // Create cell for the pause button
-  var pauseCell = document.createElement('td');
-  var pauseButton = document.createElement('button');
-  pauseButton.textContent = 'Pause';
-  pauseButton.id = `pause_${timerData.id}`;
-  pauseButton.style.display = 'none'; // Hide the pause button initially
-  pauseButton.classList.add('btn', 'btn-info');
-  pauseButton.onclick = function() {
-    pauseTimer(timerData.id);
-  };
-  pauseCell.appendChild(pauseButton);
-
-  // Append cells to the row
-  row.appendChild(timerCell);
-  row.appendChild(startCell);
-  row.appendChild(pauseCell);
-
-  // Append the row to the table body
-  var tableBody = document.querySelector('#dataTable tbody');
-  tableBody.appendChild(row);
-});
-
-
-
-
-
-
-
-
-
-
-
-        // var timerId;
-
-        // function pause() {
-        //   clearInterval(timerId);
-        //   document.getElementById('start').style.display = 'inline';
-        //   document.getElementById('pause').style.display = 'none';
-        // }
-
-        // function startTimer() {
-        //   var demo = document.getElementById('<?= $row['id']; ?>'); // Get the timer element with the ID "tim"
-        //   var btn = document.getElementById('start').style.display = 'none';
-        //   document.getElementById('pause').style.display = 'inline';
-
-        //   var duration = demo.getAttribute('data-duration');
-        //   var x = Number(duration);
-
-        //   var serverDate = new Date(<?php echo $dat * 1000; ?>);
-        //   var formatter = new Intl.DateTimeFormat("en-US", {
-        //     timeZone: "Africa/Nairobi",
-        //     year: "numeric",
-        //     month: "numeric",
-        //     day: "numeric",
-        //     hour: "numeric",
-        //     minute: "numeric",
-        //     second: "numeric"
-        //   });
-        //   var pstDate = formatter.format(serverDate);
-
-        //   var pstDateObj = new Date(pstDate);
-        //   pstDateObj.setHours(pstDateObj.getHours() - 1);
-        //   var setTime = pstDateObj.setMinutes(pstDateObj.getMinutes() + x);
-
-        //   timerId = setInterval(function countDownTimer() {
-        //     const currentTime = Date.now();
-        //     const remainingTime = setTime - currentTime;
-
-        //     const hrs = Math.floor((remainingTime / (1000 * 60 * 60)) % 24).toLocaleString('en-US', {
-        //       minimumIntegerDigits: 2,
-        //       useGrouping: false
-        //     });
-        //     const mins = Math.floor((remainingTime / (1000 * 60)) % 60).toLocaleString('en-US', {
-        //       minimumIntegerDigits: 2,
-        //       useGrouping: false
-        //     });
-        //     const secs = Math.floor((remainingTime / 1000) % 60).toLocaleString('en-US', {
-        //       minimumIntegerDigits: 2,
-        //       useGrouping: false
-        //     });
-
-        //     const formattedTime = `${hrs}:${mins}:${secs}`;
-        //     console.log(formattedTime);
-
-        //     demo.textContent = formattedTime;
-
-        //     if (remainingTime < 0) {
-        //       clearInterval(timerId);
-        //       demo.textContent = "00:00:00";
-        //     }
-
-        //   }, 1000);
-        // }
-
-
-
-
-
-
-
-        // var serverDate = new Date(<?php echo $dat * 1000; ?>);
-
-        // var formatter = new Intl.DateTimeFormat("en-US", {
-        //   timeZone: "Africa/Nairobi",
-        //   year: "numeric",
-        //   month: "numeric",
-        //   day: "numeric",
-        //   hour: "numeric",
-        //   minute: "numeric",
-        //   second: "numeric"
-        // });
-        // var pstDate = formatter.format(serverDate);
-
-        // document.querySelectorAll("#tim").forEach((demo) => {
-        //   demoFunction(demo);
-        // });
-
-        // function demoFunction(demo) {
-        //   var duration = demo.getAttribute('data-duration');
-        //   var x = Number(duration);
-
-        //   var pstDateObj = new Date(pstDate);
-
-        //   // Subtract one hour from the date object (since it is one hour ahead)
-        //   pstDateObj.setHours(pstDateObj.getHours() - 1);
-        //   // console.log("Adjusted timestamp is " + pstDateObj);
-
-        //   var setTime = pstDateObj.setMinutes(pstDateObj.getMinutes() + x);
-
-        //   var button = document.getElementById("start", );
-        //   button.addEventListener('click', function() {
-
-        //     myFunction(setTime, demo);
-        //   });
-
-        // }
-
-
-        // start of myFunction
-
-        function myFunction(setTime, demo) {
-          clearInterval(timerLoop);
-
-          var timerLoop = setInterval(function countDownTime() {
-            // ... (rest of the code for the countDownTimer function)
-            // console.log("This is setTime", setTime);
-            const currentTime = Date.now();
-            // console.log("This is currentTime", currentTime);
-
-            // const remainingTime = futureTime - currentTime;
-            const remainingTime = setTime - currentTime;
-            // console.log("The deadline " + remainingTime);
-
-            const hrs = Math.floor((remainingTime / (1000 * 60 * 60)) % 24).toLocaleString('en-US', {
-              minimumIntegerDigits: 2,
-              useGrouping: false
-            });
-            const mins = Math.floor((remainingTime / (1000 * 60)) % 60).toLocaleString('en-US', {
-              minimumIntegerDigits: 2,
-              useGrouping: false
-            });
-            const secs = Math.floor((remainingTime / 1000) % 60).toLocaleString('en-US', {
-              minimumIntegerDigits: 2,
-              useGrouping: false
-            });
-
-            const formattedTime = `${hrs}:${mins}:${secs}`;
-            // console.log(formattedTime);
-
-            // timer.textContent = formattedTime;
-
-            // var allTimers = document.body.querySelectorAll('.timer');
-
-            demo.textContent = formattedTime;
-
-            if (remainingTime < 0) {
-              clearInterval(timerLoop);
-              // timer.textContent = "00:00:00";
-              demo.textContent = "00:00:00";
-              // timer.style.color = "lightgrey";
+            <td><?php
+
+                $screen_name = "SELECT * FROM screen WHERE id= '" . $row['screen_id'] . "'";
+                $check = mysqli_query($conn, $screen_name);
+                if ($check !== FALSE) {
+                  $row2 = mysqli_fetch_assoc($check);
+                  echo $row2['screen'];
+                } else {
+                  echo "Error executing the query" . mysqli_error($conn);
+                }
+
+
+
+                // select from screens where id = $row['screen_id'];
+                // $row2 = mysqli_fetch_assoc($result)
+                //echo $row2['']
+
+                // echo "<div class='timer'></div>";
+                ?>
+            </td>
+            <!-- end of screens -->
+          </tr>
+          <script>
+            // Fetch data from the database (example: hardcoded data)
+            var dataFromDatabase = [
+              <?php
+              while ($row = mysqli_fetch_assoc($result)) {
+                echo "{ id: " . $row['id'] . ", duration: " . $row['duration'] . " },";
+              }
+              ?>
+            ];
+
+            var timers = {}; // An object to store timer objects and their respective IDs
+
+            // Function to create a timer and store it in the timers object
+            function createTimer(id, duration) {
+              var timerElement = document.createElement('div');
+              timerElement.classList.add('timer', 'center');
+              timerElement.style.display = 'flex';
+              timerElement.style.fontSize = '24px';
+              timerElement.style.fontWeight = 'bold';
+              timerElement.style.margin = '5px';
+              timerElement.setAttribute('id', `timer_${id}`);
+
+              timers[id] = {
+                element: timerElement,
+                duration: duration,
+                timerId: null, // Store the timer interval ID
+              };
             }
 
-          }, 1000);
+            // Loop through the timer data and create timers for each entry
+            dataFromDatabase.forEach(function(timerData) {
+              createTimer(timerData.id, timerData.duration);
+            });
 
-          // pause button
-          function pause() {
-            clearInterval(timerLoop);
-            document.getElementById('start').style.display = 'inline';
-            document.getElementById('pause').style.display = 'none';
-          }
-          // end of pause button
+            // Function to pause a timer
+            function pauseTimer(id) {
+              clearInterval(timers[id].timerId);
+              document.getElementById(`start_${id}`).style.display = 'inline';
+              document.getElementById(`pause_${id}`).style.display = 'none';
+            }
+
+            // Function to start a timer
+            function startTimer(id) {
+              document.getElementById(`start_${id}`).style.display = 'none';
+              document.getElementById(`pause_${id}`).style.display = 'inline';
+
+              var demo = timers[id].element;
+              var duration = timers[id].duration;
+              var x = Number(duration);
+
+              var serverDate = new Date(<?php echo $dat * 1000; ?>);
+              var formatter = new Intl.DateTimeFormat("en-US", {
+                timeZone: "Africa/Nairobi",
+                year: "numeric",
+                month: "numeric",
+                day: "numeric",
+                hour: "numeric",
+                minute: "numeric",
+                second: "numeric"
+              });
+              var pstDate = formatter.format(serverDate);
+
+              var pstDateObj = new Date(pstDate);
+              pstDateObj.setHours(pstDateObj.getHours() - 1);
+
+              var setTime = pstDateObj.setMinutes(pstDateObj.getMinutes() + x);
+
+              timers[id].timerId = setInterval(function countDownTimer() {
+                const currentTime = Date.now();
+                const remainingTime = setTime - currentTime;
+
+                const hrs = Math.floor((remainingTime / (1000 * 60 * 60)) % 24).toLocaleString('en-US', {
+                  minimumIntegerDigits: 2,
+                  useGrouping: false
+                });
+                const mins = Math.floor((remainingTime / (1000 * 60)) % 60).toLocaleString('en-US', {
+                  minimumIntegerDigits: 2,
+                  useGrouping: false
+                });
+                const secs = Math.floor((remainingTime / 1000) % 60).toLocaleString('en-US', {
+                  minimumIntegerDigits: 2,
+                  useGrouping: false
+                });
+
+                const formattedTime = `${hrs}:${mins}:${secs}`;
+                demo.textContent = formattedTime;
+
+                if (remainingTime < 0) {
+                  clearInterval(timers[id].timerId);
+                  demo.textContent = "00:00:00";
+                }
+              }, 1000);
+            }
+
+            // Dynamically create timers based on the data fetched from the database
+            dataFromDatabase.forEach(function(timerData) {
+              createTimer(timerData.id, timerData.duration);
+
+              var row = document.createElement('tr');
+              // Create cell for the timer display
+              var timerCell = document.createElement('td');
+              var timerElement = timers[timerData.id].element;
+              timerCell.appendChild(timerElement);
+
+              // Create cell for the start button
+              var startCell = document.createElement('td');
+              var startButton = document.createElement('button');
+              startButton.textContent = 'Start';
+              startButton.id = `start_${timerData.id}`;
+              startButton.classList.add('btn', 'btn-danger');
+              startButton.onclick = function() {
+                startTimer(timerData.id);
+              };
+              startCell.appendChild(startButton);
+
+              // Create cell for the pause button
+              var pauseCell = document.createElement('td');
+              var pauseButton = document.createElement('button');
+              pauseButton.textContent = 'Pause';
+              pauseButton.id = `pause_${timerData.id}`;
+              pauseButton.style.display = 'none'; // Hide the pause button initially
+              pauseButton.classList.add('btn', 'btn-info');
+              pauseButton.onclick = function() {
+                pauseTimer(timerData.id);
+              };
+              pauseCell.appendChild(pauseButton);
+
+              // Append cells to the row
+              row.appendChild(timerCell);
+              row.appendChild(startCell);
+              row.appendChild(pauseCell);
+
+              // Append the row to the table body
+              var tableBody = document.querySelector('#dataTable tbody');
+              tableBody.appendChild(row);
+            });
+          </script>
+        <?php
         }
-        // end of myFunction
-
-
-
-
-
-        //   button.addEventListener("start", function(){
-
-        //   setTime = dbTime.setMinutes(dbTime.getMinutes() + x); // Date object
-
-
-        //   // future time => setTime = deadline
-        //   const futureTime = setTime;
-        // console.log(futureTime);
-        //   var timerLoop;  // timer variable
-
-        //     clearInterval(timerLoop);
-
-        //     timerLoop = setInterval(function countDownTimer() {
-
-        //     const currentTime = Date.now();
-
-        //     const remainingTime = futureTime - currentTime;  
-
-        //     const hrs = Math.floor((remainingTime / (1000 * 60 * 60)) % 24).toLocaleString('en-US', { minimumIntegerDigits: 2, useGrouping: false });
-        //     const mins = Math.floor((remainingTime / (1000 * 60)) % 60).toLocaleString('en-US', { minimumIntegerDigits: 2, useGrouping: false });
-        //     const secs = Math.floor((remainingTime / 1000) % 60).toLocaleString('en-US', { minimumIntegerDigits: 2, useGrouping: false });
-
-        //     const formattedTime = `${hrs}:${mins}:${secs}`;
-        //     console.log(formattedTime);
-
-        //     // timer.textContent = formattedTime;
-
-        //     // var allTimers = document.body.querySelectorAll('.timer');
-
-        //       demo.textContent = formattedTime;
-
-        //     if (remainingTime < 0) {
-        //         clearInterval(timerLoop);
-        //         // timer.textContent = "00:00:00";
-        //         demo.textContent = "00:00:00";         
-        //         // timer.style.color = "lightgrey";
-        //     }
-
-        // }, 1000);
-        // });
-
-        // countDownTimer();
-
-
-        // })
-      </script>
-      <!-- <p id="response" style="font-weight:bolder;"></p>                   -->
-      </td>
-      <!-- end of duration timer -->
-      <!-------  fetching screens from database  ------->
-      <td><?php
-
-          $screen_name = "SELECT * FROM screen WHERE id= '" . $row['screen_id'] . "'";
-          $check = mysqli_query($conn, $screen_name);
-          if ($check !== FALSE) {
-            $row2 = mysqli_fetch_assoc($check);
-            echo $row2['screen'];
-          } else {
-            echo "Error executing the query" . mysqli_error($conn);
-          }
-
-
-
-          // select from screens where id = $row['screen_id'];
-          // $row2 = mysqli_fetch_assoc($result)
-          //echo $row2['']
-
-          // echo "<div class='timer'></div>";
-          ?>
-      </td>
-      <!-- end of screens -->
-      </tr>
-    <?php
-        }
-    ?>
-    </tbody>
+        ?>
+      </tbody>
     </table>
+
+
 
 
   </div>
