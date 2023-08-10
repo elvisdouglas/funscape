@@ -16,6 +16,12 @@ include('includes/navbar.php');
 
 
 $conn = require __DIR__ . "/conn.php";
+$admin_n = "SELECT * FROM register";
+$a_user = mysqli_query($conn, $admin_n);
+while($row5 = mysqli_fetch_assoc($a_user)){
+  $admin_name = $row5["username"];
+}
+
 $mysqli = require __DIR__ . "/conn.php";
 $sql = sprintf("SELECT * FROM gamer");
 $result = mysqli_query($mysqli, $sql);
@@ -46,7 +52,7 @@ while ($row1 = mysqli_fetch_assoc($c_timer)) {
   <!-- Page Heading -->
   <div class="d-sm-flex align-items-center justify-content-between mb-4">
     <h1 class="h3 mb-0 text-gray-800">Dashboard</h1>
-    <h1>Hello Admin, </h1>
+    <h1>Hello <?php echo $admin_name ?> </h1>
   </div>
 
   <br>
@@ -212,7 +218,6 @@ while ($row1 = mysqli_fetch_assoc($c_timer)) {
             <!-- duration timer -->
             <td>
 
-
               <!-- <?php echo $row["duration"]; ?> </br> -->
               <?php
 
@@ -229,7 +234,7 @@ while ($row1 = mysqli_fetch_assoc($c_timer)) {
               ?>
 
               <div data-duration="<?= $row["duration"]; ?>" class="timer center" id="<?= $row['id']; ?>" style="display: flex; font-size: 24px; font-weight:bold; margin:5px;"></div>
-
+            </td>
             <td><?php
 
                 $screen_name = "SELECT * FROM screen WHERE id= '" . $row['screen_id'] . "'";
