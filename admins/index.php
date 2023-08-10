@@ -277,7 +277,7 @@ while ($row1 = mysqli_fetch_assoc($c_timer)) {
               timers[id] = {
                 element: timerElement,
                 duration: duration,
-                timerId: null, // Store the timer interval ID
+                timerId: id // Store the timer interval ID
               };
             }
 
@@ -301,6 +301,7 @@ while ($row1 = mysqli_fetch_assoc($c_timer)) {
               var demo = timers[id].element;
               var duration = timers[id].duration;
               var x = Number(duration);
+              
 
               var serverDate = new Date(<?php echo $dat * 1000; ?>);
               var formatter = new Intl.DateTimeFormat("en-US", {
