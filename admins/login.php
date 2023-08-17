@@ -58,7 +58,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 </head>
 
 
-<body style="background: url('../images/btt.png'); background-size: cover; background-repeat: no-repeat; background-position: center; background-attachment: fixed;">
+<body style="background: url('../images/6.jpg'); background-size: cover; background-repeat: no-repeat; background-position: center; background-attachment: fixed;">
     <!--------main container------------>
     <div class="container d-flex justify-content-center align-items-center min-vh-100">
         <!---------login container------------------->

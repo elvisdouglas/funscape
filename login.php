@@ -50,7 +50,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $is_invalid = true;
 }
 ?>
-<body>
+<body style="background: url('./images/13.jpg'); background-size: cover; background-repeat: no-repeat; background-position: center; background-attachment: fixed;">
     <!--------main container------------>
     <div class="container d-flex justify-content-center align-items-center min-vh-100">
         <!---------login container------------------->
