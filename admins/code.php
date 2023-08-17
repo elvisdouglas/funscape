@@ -69,7 +69,7 @@ $assign = mysqli_query($conn, $sql);
 if ($assign == true) {
     //redirect to admin dashboard
     echo "Admin registered successfully";
-    header("refresh:3;url=index.php");
+    header("refresh:3;url=admins.php");
     exit();
 } else {
         echo("email already taken");

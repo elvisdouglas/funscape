@@ -58,7 +58,7 @@ $sql = "INSERT INTO user (names, email, password_hash,user_type)
 if ($conn->query($sql) === TRUE) {
     //redirect to admin dashboard
     echo "User registered successfully";
-    header("refresh:3;url=index.php");
+    header("refresh:3;url=users.php");
     exit();
 } else {
     if ($mysqli->errno === 1062) {
