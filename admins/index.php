@@ -18,7 +18,7 @@ include('includes/navbar.php');
 $conn = require __DIR__ . "/conn.php";
 $admin_n = "SELECT * FROM register";
 $a_user = mysqli_query($conn, $admin_n);
-while($row5 = mysqli_fetch_assoc($a_user)){
+while ($row5 = mysqli_fetch_assoc($a_user)) {
   $admin_name = $row5["username"];
 }
 
@@ -211,7 +211,7 @@ while ($row1 = mysqli_fetch_assoc($c_timer)) {
           <tr>
 
             <td>
-              <button data-id="<?php echo $row['id']; ?>" id="start_<?php echo $row['id']; ?>" class="btn btn-danger" onclick="startTimer(<?php echo $row['id']; ?>)">Start</button>
+              <button data_id="<?php echo $row['id']; ?>" id="start_<?php echo $row['id']; ?>" class="btn btn-danger" onclick="startTimer(<?php echo $row['id']; ?>)">Start</button>
 
               <button id='pause_<?php echo $row['id']; ?>' class="btn btn-info" onclick="pauseTimer(<?php echo $row['id']; ?>)">Pause</button>
             </td>
@@ -266,12 +266,16 @@ while ($row1 = mysqli_fetch_assoc($c_timer)) {
               }
               ?>
             ];
+            console.log("Am here");
+            console.log(dataFromDatabase);
 
             var timers = {}; // An object to store timer objects and their respective IDs
-
+            console.log(timers);
             // Function to create a timer and store it in the timers object
             function createTimer(id, duration) {
+              console.log("Am here");
               var timerElement = document.createElement('div');
+              console.log(timerElement);
               timerElement.classList.add('timer', 'center');
               timerElement.style.display = 'flex';
               timerElement.style.fontSize = '24px';
@@ -279,17 +283,20 @@ while ($row1 = mysqli_fetch_assoc($c_timer)) {
               timerElement.style.margin = '5px';
               timerElement.setAttribute('id', `timer_${id}`);
 
-              timers[id] = {
+              timers = {
                 element: timerElement,
                 duration: duration,
                 timerId: id // Store the timer interval ID
               };
+              console.log(timers);
+
             }
 
             // Loop through the timer data and create timers for each entry
             dataFromDatabase.forEach(function(timerData) {
               createTimer(timerData.id, timerData.duration);
             });
+            console.log(dataFromDatabase);
 
             // Function to pause a timer
             function pauseTimer(id) {
@@ -302,30 +309,29 @@ while ($row1 = mysqli_fetch_assoc($c_timer)) {
             function startTimer(id) {
               document.getElementById(`start_${id}`).style.display = 'none';
               document.getElementById(`pause_${id}`).style.display = 'inline';
+                var demo = timers[id].element;
+                var duration = timers[id].duration;
+                var x = Number(duration);
 
-              var demo = timers[id].element;
-              var duration = timers[id].duration;
-              var x = Number(duration);
+                var serverDate = new Date(<?php echo $dat * 1000; ?>);
+                var formatter = new Intl.DateTimeFormat("en-US", {
+                  timeZone: "Africa/Nairobi",
+                  year: "numeric",
+                  month: "numeric",
+                  day: "numeric",
+                  hour: "numeric",
+                  minute: "numeric",
+                  second: "numeric"
+                });
+                var pstDate = formatter.format(serverDate);
+
+                var pstDateObj = new Date(pstDate);
+                pstDateObj.setHours(pstDateObj.getHours() - 1);
+
+                var setTime = pstDateObj.setMinutes(pstDateObj.getMinutes() + x);
               
-
-              var serverDate = new Date(<?php echo $dat * 1000; ?>);
-              var formatter = new Intl.DateTimeFormat("en-US", {
-                timeZone: "Africa/Nairobi",
-                year: "numeric",
-                month: "numeric",
-                day: "numeric",
-                hour: "numeric",
-                minute: "numeric",
-                second: "numeric"
-              });
-              var pstDate = formatter.format(serverDate);
-
-              var pstDateObj = new Date(pstDate);
-              pstDateObj.setHours(pstDateObj.getHours() - 1);
-
-              var setTime = pstDateObj.setMinutes(pstDateObj.getMinutes() + x);
-
               timers[id].timerId = setInterval(function countDownTimer() {
+                var demo = timers[id].element;
                 const currentTime = Date.now();
                 const remainingTime = setTime - currentTime;
 
