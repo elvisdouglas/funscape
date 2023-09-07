@@ -229,6 +229,8 @@ while ($row1 = mysqli_fetch_assoc($c_timer)) {
             <!-- duration timer -->
             <td>
 
+
+
               <!-- <?php echo $row["duration"]; ?> </br> -->
               <?php
 
@@ -252,6 +254,29 @@ while ($row1 = mysqli_fetch_assoc($c_timer)) {
               $value = $data[0]["duration"];
 
               echo $value;
+
+
+
+              $screen_nam = "SELECT * FROM screen WHERE id= '" . $row['screen_id'] . "'";
+              $chec = mysqli_query($conn, $screen_nam);
+              if ($chec !== FALSE) {
+                $row22 = mysqli_fetch_assoc($chec);
+                // echo $row22['screen'];
+              } else {
+                echo "Error executing the query" . mysqli_error($conn);
+              }
+              $scrn = $row22['screen'];
+              // echo $scrn;
+
+              // Check if the PHP value is 0
+              if ($data[0]["duration"] < 1) {
+                echo "<script>";
+                echo "alert('Time Up for the gamer screen $scrn!');";
+                echo "</script>";
+              }
+
+
+
 
               // duration values stored in timeRemaining
               $timeRemaining = $value;
@@ -311,6 +336,27 @@ while ($row1 = mysqli_fetch_assoc($c_timer)) {
             <!-- end of screens -->
           </tr>
           <script>
+            var Notify = <?php echo $value; ?>;
+            console.log(Notify);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
             // Fetch data from the database (example: hardcoded data)
 
             var dataFromDatabase = <?php echo $json_data; ?>;
