@@ -81,7 +81,7 @@ $conn = require __DIR__ . "/conn.php";
                 <select class="form-control" name="status" id="status">
                 <option>--Select screen status--</option>
                     <option value="1">Screen Used</option>
-                    <option value="0">Screen Free</option>
+                    <option value="0">Free Screen </option>
                 </select>
             </div>
         
