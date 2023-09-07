@@ -55,7 +55,7 @@ if ($method === 'PUT') {
             break;
         }
         
-        sleep(60); // Wait for 1 second
+        sleep(60); // Wait for 1 second 
         $timeRemaining--;
         //     // Update the database with the new time remaining
         
